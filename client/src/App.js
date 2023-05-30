@@ -17,6 +17,7 @@ import ItemDetails from './components/items/ItemDetails';
 function App() {
   const { currentUser } = useSelector(store => store.usersReducer)
   const [cartCount, setCartCount] = useState(0)
+  // const [cartCount, setCartCount] = useState({});
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
@@ -26,16 +27,34 @@ function App() {
     dispatch(loadReviews())
 
   }, [dispatch])
-
   useEffect(() => {
     let count = 0;
     if (currentUser?.user_items) {
-    currentUser.user_items.forEach((item) => {
-      count += item.quantity;
-    });
-  }
+      currentUser.user_items.forEach((item) => {
+        count += item.quantity;
+      });
+    }
     setCartCount(count);
- }, [currentUser?.user_items, cartCount])
+  }, [currentUser?.user_items, cartCount])
+  console.log(cartCount, "I am cartCount")
+
+  // useEffect(() => {
+  //   let count = 0;
+  //   let updatedCartCount = {};
+
+  //   if (currentUser?.user_items) {
+  //     currentUser.user_items.forEach((item) => {
+  //       if (currentUser.user_item.quantity && item.price) {
+  //         count += item.quantity;
+  //         updatedCartCount[item.id] = item;
+  //       }
+  //     });
+  //   }
+
+  //   setCartCount(updatedCartCount);
+  //   setCartCount(count);
+  // }, [currentUser?.user_items]);
+  
 
 
   return (

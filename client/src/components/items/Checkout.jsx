@@ -4,20 +4,37 @@ import ItemCardCheckout from "./ItemCardCheckout"
 import { useSelector } from "react-redux"
 
 const Checkout = ({cartCount}) => {
-  // const [totalPrice, setTotalPrice] = useState(0)
-  // const [totalItems, setTotalItems] = useState(0)
+  const [totalPrice, setTotalPrice] = useState(0)
+  const [totalItems, setTotalItems] = useState(0)
     const { currentUser } = useSelector(store => store.usersReducer)
 console.log(currentUser, cartCount)
 // useEffect(() => {
 //   let items = 0;
 //   let price = 0;
-//   cartCount.forEach(item => {
+//   Object.keys(cartCount).forEach((item) => {
 //     items += item.quantity
 //     price += item.quantity * item.price
 //   })
 //   setTotalPrice(price)
 //   setTotalItems(items)
 // },[cartCount, totalPrice, totalItems, setTotalPrice, setTotalItems])
+
+useEffect(() => {
+  let items = 0;
+  let price = 0;
+
+  currentUser.user_items.forEach((item) => {
+    const quantity = item.quantity;
+    items += quantity;
+    price += quantity * item.price;
+  });
+
+  setTotalPrice(price);
+  setTotalItems(items);
+}, [currentUser.user_items]);
+
+
+
     return (
 
 <section className="h-100 h-custom" style={{'backgroundColor': '#eee'}}>
@@ -105,7 +122,7 @@ console.log(currentUser, cartCount)
 
                     <div className="d-flex justify-content-between">
                       <p className="mb-2">Subtotal</p>
-                      <p className="mb-2">$4810.00</p>
+                      <p className="mb-2">${totalPrice}</p>
                     </div>
 
                     <div className="d-flex justify-content-between">
@@ -115,13 +132,13 @@ console.log(currentUser, cartCount)
 
                     <div className="d-flex justify-content-between mb-4">
                       <p className="mb-2">Total(Incl. taxes)</p>
-                      <p className="mb-2">$4810.00</p>
+                      <p className="mb-2">${totalPrice}</p>
                     </div>
 
                     <button type="button" className="btn btn-info btn-block btn-lg">
                       <div className="d-flex justify-content-between">
                         {/* <span>$4818.00</span> */}
-                        <span>$4810.00</span>
+                        <span>${totalPrice}</span>
                         <span>Checkout <i className="fas fa-long-arrow-alt-right ms-2"></i></span>
                       </div>
                     </button>
