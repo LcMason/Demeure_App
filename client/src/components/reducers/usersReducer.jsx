@@ -3,11 +3,13 @@
 const initialState = {
 users: [],
 currentUser: null,
+cartCount: 0,
 loggedIn: false,
 // user_items: [], //user_items is cart
+user_items: [], 
 showItem: null, 
 items: [],
-reviews: []
+reviews: [],
 }
 
 const usersReducer = (state=initialState, action) => {
@@ -38,12 +40,23 @@ const usersReducer = (state=initialState, action) => {
           return {
             ...state,
               items: action.payload
-        }    
+        }  
+        case "LOAD_USER_ITEMS":
+          return {
+            ...state,
+              user_items: action.payload
+        }   
         case "SHOW_ITEM":
           return {
               ...state, 
               showItem: action.payload
         } 
+        // NewCode ;
+        case "UPDATE_USER_ITEMS":
+        return {
+          ...state,
+          currentUser: {...state.currentUser, user_items: action.payload}
+        }
         case "ADD_TO_CART":
           const item = action.payload;
           const inCart = state.currentUser?.user_items?.find(
@@ -55,12 +68,30 @@ const usersReducer = (state=initialState, action) => {
                 : cartItem
             )
           : [...state.currentUser?.user_items ?? [], { ...item, quantity: 1 }]
+          const updatedCartCount = state.cartCount + 1; // Increment the cart count
           return {
             ...state,
-            currentUser: {...state.currentUser, user_items: updatedUserItems}
+            currentUser: {...state.currentUser, user_items: updatedUserItems},
+            cartCount: updatedCartCount
+        }
+        case "UPDATE_CART_COUNT":
+          return {
+            ...state,
+            cartCount: action.payload
         }
         case "ADJUST_QTY":
-          return {...state.currentUser, user_items: state.currentUser.user_items.map(item => item.id === action.payload.id ? {...item, quantity: action.payload.quantity} : item)}            
+          // return {...state.currentUser, user_items: state.currentUser.user_items.map(item => item.id === action.payload.id ? {...item, quantity: action.payload.quantity} : item)} 
+          return {
+            ...state,
+            currentUser: {
+              ...state.currentUser,
+              user_items: state.currentUser.user_items.map((item) =>
+                item.id === action.payload.id
+                  ? { ...item, quantity: action.payload.quantity }
+                  : item
+              )
+            }
+        }                       
         case "REMOVE_FROM_CART":
           return {
               ...state,

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setErrors, clearErrors } from '../actions/errors';
+// import { setErrors, clearErrors } from '../actions/errors';
+import { clearErrors } from '../actions/errors';
+
 import { loginUser } from '../actions/users';
-import Errors from '../errors/Errors';
+//import Errors from '../errors/Errors';
 
 // TODO : I am able to login without signing up. My errors are working in Postman when tested but are not working on the front end. 
 

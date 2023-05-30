@@ -1,5 +1,5 @@
-import { headers } from "../Globals"
-import { setErrors } from "./errors";
+// import { headers } from "../Globals"
+// import { setErrors } from "./errors";
 
 
 
@@ -22,6 +22,25 @@ export const loadItems = () => {
   }
 }
 
+export const updateCartItems = (item) => {
+  return dispatch => {
+    // asynchronous calls
+    fetch('/cart',
+    {
+      method: "POST",
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      body: JSON.stringify(item)
+    })
+    .then(resp => resp.json())
+    .then(data => {
+      const action = ({ type: "LOAD_USER_ITEMS", payload: data })
+      console.log(data)
+      dispatch(action)
+    })
+  }
+}
+
 export const addToCart = (item) => {
   return {
     type: "ADD_TO_CART",
@@ -37,6 +56,14 @@ export const removeFromCart = (id) => {
 export const adjustQty = (id, qty) => {
   return { type: "ADJUST_QTY", payload: { id, quantity: qty} }
 }
+// NewCode :
+// export const updateCart = (updatedCartItems) => {
+//   return { type: "UPDATE_USER_ITEMS", payload: updatedCartItems }
+// }
+export const updateCart = (total) => {
+  return { type: "UPDATE_CART_COUNT", payload: total }
+}
+
 
 // Check syntax of deleteItem. Missing data in the dispatch?
 // export const deleteItem = (id) => {
@@ -59,6 +86,20 @@ export const adjustQty = (id, qty) => {
 //   }
 // }
 
+// export const showItem = (id) => {
+//   return dispatch => {
+//     fetch(`/items/${id}`)
+//       .then(resp => resp.json())
+//       .then(data => {
+//         const action = {
+//           type: "SHOW_ITEM",
+//           payload: data
+//         };
+//         dispatch(action);
+//         // navigate(`/items/${id}`)
+//       });
+//   };
+// };
 export const showItem = (id) => {
   return dispatch => {
     fetch(`/items/${id}`)
@@ -73,7 +114,6 @@ export const showItem = (id) => {
       });
   };
 };
-
 // export const removeItem = (item) => {
 //   return dispatch => {
 //     fetch(`/items/${item.id}`)

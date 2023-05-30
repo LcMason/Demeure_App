@@ -1,10 +1,13 @@
-import React, { useState, useEffect} from 'react'
+// import React, { useState, useEffect} from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { logoutUser } from '../actions/users'
 
-const LoggedInLinks = ({ cartCount }) => {
-  const { currentUser } = useSelector(store => store.usersReducer)
+// const LoggedInLinks = ({ cartCount }) => {
+//   const { currentUser } = useSelector(store => store.usersReducer)
+const LoggedInLinks = () => {
+  const { currentUser, cartCount } = useSelector(store => store.usersReducer)
   const dispatch = useDispatch();
 
   const handleLogout = () => {
@@ -21,9 +24,9 @@ return (
       <li className="nav-item">
         <Link className="nav-link" to="/items">Shop</Link>
       </li>
-      <li className="nav-item">
+      {/* <li className="nav-item">
         <Link className="nav-link" to="reviews">Reviews</Link>
-      </li>
+      </li> */}
       <li className="nav-item">
         <Link className="nav-link" to="/login" onClick={handleLogout}>Logout</Link>
       </li>
