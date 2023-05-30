@@ -29,11 +29,12 @@ const ItemDetails = () => {
     
     console.log(cartTotal, "cartTotal");
     console.log(qty, "qty")
-
+console.log(itemQ, "itemQ")
     const handleAddItem = () => {
         const updatedQty = parseInt(qty);
         const updatedItem = { ...currentItem, quantity: updatedQty }
-      
+        // const newUserItems = [...currentUser.user_items, updatedItem];
+        // const updatedUser = {...currentUser, user_items: newUserItems}
         if (itemQ) {
           // Item is already in the cart, adjust the quantity
           dispatch(adjustQty(currentItem.id, updatedQty))
@@ -41,6 +42,8 @@ const ItemDetails = () => {
           // Item is not in the cart, add it to the cart
           dispatch(addToCart(updatedItem))
         }      
+//         const updatedCartTotal = cartTotal + updatedQty * currentItem.price;
+//   setCartTotal(updatedCartTotal);
         navigate('/checkout')
     }
       
@@ -55,6 +58,8 @@ const ItemDetails = () => {
         event.preventDefault();
         handleAddItem()
     }
+  
+      
 
     const submitReviewForm = (e) =>  {
         e.preventDefault();
@@ -65,7 +70,7 @@ const ItemDetails = () => {
             user_id: currentUser.id,
             item_id: currentItem.id
         }
-        console.log(newReview)
+        console.log(newReview, "newReview")
         dispatch(addReview(newReview))
         
         // clear form??
@@ -96,7 +101,7 @@ return (
                         <p>{currentItem.description}</p>                    
                         <form className="d-flex justify-content-left" onSubmit={handleSubmit}>                        
                             <div className="form-outline me-1" style={{width: '100px'}}>
-                                <input min="1" type="number" defaultValue={qty} className="form-control" onChange={(e) => setQty(parseInt(e.target.value))} />
+                                <input min="0" type="number" defaultValue={qty} className="form-control" onChange={(e) => setQty(parseInt(e.target.value))} />
                             </div>                        
                             <button className="btn btn-primary shadow-0 me-1" type="submit">Add To Cart
                                 <i className="fas fa-shopping-cart ms-1"></i>

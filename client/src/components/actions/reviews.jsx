@@ -17,28 +17,28 @@ export const loadReviews = () => {
     }
 }
 
-    export const addReview = (review) => {
-        return dispatch => {
-            fetch('/reviews', {
-                method: "POST",
-                headers,
-                body: JSON.stringify(review)
-              })
-                .then(resp => resp.json())
-                .then(data => {
-                  if(data.errors) {
-                    dispatch(setErrors(data.errors));
-                  } else {
-                    const action = {
-                      type: "ADD_REVIEW",
-                      payload: data
-                    }
-                    dispatch(action)
-                    dispatch(clearErrors())
-                  }
-                })
+export const addReview = (review) => {
+    return dispatch => {
+        fetch('/reviews', {
+            method: "POST",
+            headers,
+            body: JSON.stringify(review)
+          })
+            .then(resp => resp.json())
+            .then(data => {
+              if(data.errors) {
+                dispatch(setErrors(data.errors));
+              } else {
+                const action = {
+                  type: "ADD_REVIEW",
+                  payload: data
+                }
+                  dispatch(action)
+                  dispatch(clearErrors())
+                }
+            })
 
-            }
+    }
     
-        }
+}
 

@@ -6,14 +6,14 @@ import { Link } from "react-router-dom"
 const ItemCardCheckout = ({item, onIncrement, onDecrement}) => {
   const { id, name, price, quantity } = item;
 
+// stretch goals - increment and decrement cart totals from /checkout route.
+  // const handleIncrement = () => {
+  //   onIncrement(id);
+  // };
 
-  const handleIncrement = () => {
-    onIncrement(id);
-  };
-
-  const handleDecrement = () => {
-    onDecrement(id);
-  };
+  // const handleDecrement = () => {
+  //   onDecrement(id);
+  // };
 
   return (
     // <div className="card mb-3">
@@ -41,10 +41,10 @@ const ItemCardCheckout = ({item, onIncrement, onDecrement}) => {
                         <div style={{width: '80px'}}>
                           <h5 className="mb-0">${item.price}</h5>
                         </div>
-                        <div>
+                        {/* <div> stretch goal
                         <button className="btn btn-sm btn-primary ms-2" onClick={handleDecrement}>-</button>
                         <button className="btn btn-sm btn-primary ms-2"  onClick={handleIncrement}>+</button>
-                        </div>
+                        </div> */}
                         <Link to="#!" style={{color: '#cecece'}}><i className="fas fa-trash-alt"></i></Link>
                       </div>
                     </div>

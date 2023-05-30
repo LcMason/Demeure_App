@@ -57,13 +57,20 @@ const usersReducer = (state=initialState, action) => {
         }
         case "ADD_TO_CART":
           const item = action.payload;
+          console.log(item, "item")
+          //set a qty value thats either 1 or item.quantity
+          // itemQuant = parseInt(item.qty)
           const inCart = state.currentUser?.user_items?.find(
           (cartItem) => cartItem.id === item.id)
+          console.log(inCart, "inCart")
           const updatedUserItems = inCart
           ? state.currentUser.user_items.map((cartItem) =>
               cartItem.id === item.id
+              // add variable declared on line 61 
                 ? { ...cartItem, quantity: cartItem.quantity + 1 }
+           
                 : cartItem
+                // add variable declared on line 70
             )
           : [...state.currentUser?.user_items ?? [], { ...item, quantity: 1 }]
           const updatedCartCount = state.cartCount + 1; // Increment the cart count
