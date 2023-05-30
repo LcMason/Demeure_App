@@ -9,30 +9,14 @@ const Cart = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    
-
         const displayAddedItems = () => {
             return cart.map(item => {
                 let itemQuantity = userItems.find((userItem) => {
                     return userItem.item_id === item.id;
                 })
             })
-
         }
   return (
-  
-    // <aside className=" block col-1">
-    //     <h4>Cart Items</h4>
-    //     {/* <div>{cart.length === 0 && <div>Cart Is Empty</div>}</div> */}
-    // </aside>
-   
-    //
-//     <div>
-//         {cart.map((userItems) => )}
-//     </div>
-//   )
-
-//   return(
     <div className="cart-item">
         <div>
   {cart.map(item => (
@@ -46,9 +30,8 @@ const Cart = () => {
             <button className="item-save-button" onClick={displayAddedItems}>SAVE FOR LATER</button>   
         </div>               
     </div>               
-// );
-/* <div></div> */
+
 )}
-// }
+
 
 export default Cart

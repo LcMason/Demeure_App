@@ -1,11 +1,9 @@
-// import React, { useState, useEffect} from 'react'
+
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { logoutUser } from '../actions/users'
 
-// const LoggedInLinks = ({ cartCount }) => {
-//   const { currentUser } = useSelector(store => store.usersReducer)
 const LoggedInLinks = () => {
   const { currentUser, cartCount } = useSelector(store => store.usersReducer)
   const dispatch = useDispatch();

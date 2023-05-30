@@ -1,11 +1,9 @@
-// import { showItem } from "../actions/items"
-
 const initialState = {
 users: [],
 currentUser: null,
 cartCount: 0,
 loggedIn: false,
-// user_items: [], //user_items is cart
+
 user_items: [], 
 showItem: null, 
 items: [],
@@ -80,7 +78,6 @@ const usersReducer = (state=initialState, action) => {
             cartCount: action.payload
         }
         case "ADJUST_QTY":
-          // return {...state.currentUser, user_items: state.currentUser.user_items.map(item => item.id === action.payload.id ? {...item, quantity: action.payload.quantity} : item)} 
           return {
             ...state,
             currentUser: {

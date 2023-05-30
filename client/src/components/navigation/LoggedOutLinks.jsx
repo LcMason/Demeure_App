@@ -27,12 +27,3 @@ const LoggedOutLinks = () => {
 }
 
 export default LoggedOutLinks
-
-// const LoggedOutLinks = () => {
-    //     return (
-    //       <nav>
-    //         <div>
-    //         <li><Link to="/">DEMEURE</Link></li>
-    //         <li><Link to="/items">Shop</Link></li>
-    //           <li><Link to="/Signup">Signup</Link></li>
-    //           <li><Link to="/Login">Login</Link></li>
