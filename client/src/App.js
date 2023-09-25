@@ -9,7 +9,7 @@ import Navbar from './components/navigation/Navbar'
 import { useSelector, useDispatch } from 'react-redux';
 import About from './components/About';
 // import { loadItems } from './components/actions/items';
-import { loadItems, updateCart } from './components/actions/items';
+import { loadItems, updateCartCount } from './components/actions/items';
 import ItemList from './components/items/ItemList';
 import { loadReviews } from './components/actions/reviews';
 import { loadCurrentUser } from './components/actions/users';
@@ -33,7 +33,7 @@ function App() {
       (total, item) => total + item.quantity,
       0
     );
-    dispatch(updateCart(totalQuantity))
+    dispatch(updateCartCount(totalQuantity))
   }, [dispatch, currentUser, cartCount]);
   
 

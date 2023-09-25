@@ -23,13 +23,14 @@ class UserItemsController < ApplicationController
         render json: @user_item
     end
 
-        def index    
+    def index    
             render json: @current_user.user_items
     end
 
     def destroy
         @user_item = UserItem.find_by(id: params[:id])
         @user_item.destroy
+        head :no_content
     end
 
     private

@@ -5,6 +5,13 @@ import { addToCart, removeFromCart, adjustQty, updateCart } from '../actions/ite
 import { addReview } from "../actions/reviews"
 import CheckoutImg from "../images/CheckoutImg.jpg"
 
+
+// TODO when clicking add to cart, we navigate to the checkout page and the item is only added to the cart on the first click not added to cart.
+// TODO: line 19. .find finds the first element in an array that satisifes a condition. 
+
+// TODO: does this component need a PATCH to update the quantity of items once AddToCart is clicked. 
+//TODO: review user_items_controller cart method. select the id that matches the item_id and update the quantity + 1. Review Rails Resource Routing: Update
+
 const ItemDetails = () => {    
     const { id } = useParams()
     const dispatch = useDispatch();
@@ -20,6 +27,7 @@ const ItemDetails = () => {
     useEffect(() => {
         const itemQ = currentUser?.user_items.find((item) => item.id === currentItem.id);
         setQty(itemQ?.quantity || 0);
+       
         // Calculate the cart total based on the quantity and price of the items in the cart
         const updatedCartTotal = currentUser?.user_items?.reduce((total, item) => {
         return total + item.quantity * item.price;
@@ -30,6 +38,7 @@ const ItemDetails = () => {
     console.log(cartTotal, "cartTotal");
     console.log(qty, "qty")
 console.log(itemQ, "itemQ")
+// TODO: handleAddItem function is not working.
     const handleAddItem = () => {
         const updatedQty = parseInt(qty);
         const updatedItem = { ...currentItem, quantity: updatedQty }
@@ -51,6 +60,8 @@ console.log(itemQ, "itemQ")
         if (qty > 0) {
           const updatedQty = qty - 1;
           dispatch(adjustQty(currentItem.id, updatedQty));
+        //   dispatch(removeFromCart(currentItem.id, updatedQty));
+        // the above dispatch may need to be in the /checkout component to remove item from shopping cart.
         }
     };
       
@@ -103,7 +114,7 @@ return (
                             <div className="form-outline me-1" style={{width: '100px'}}>
                                 <input min="0" type="number" defaultValue={qty} className="form-control" onChange={(e) => setQty(parseInt(e.target.value))} />
                             </div>                        
-                            <button className="btn btn-primary shadow-0 me-1" type="submit">Add To Cart
+                            <button /*onClick={() => handleAddItem(currentItem.id)}*/ className="btn btn-primary shadow-0 me-1" type="submit">Add To Cart
                                 <i className="fas fa-shopping-cart ms-1"></i>
                             </button>
                             <button onClick={() => handleRemoveItem(currentItem.id)} className="btn btn-primary shadow-0 me-1"><i className="bi-trash"></i>

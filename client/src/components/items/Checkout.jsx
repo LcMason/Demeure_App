@@ -4,22 +4,24 @@ import ItemCardCheckout from "./ItemCardCheckout"
 import { useSelector } from "react-redux"
 
 const Checkout = () => {
-  const { currentUser, cartCount } = useSelector(store => store.usersReducer)
+  // TODO : should i add item to line 8 to reflect the items array
+  const { currentUser, cartCount, removeFromCart } = useSelector(store => store.usersReducer)
   const [totalPrice, setTotalPrice] = useState(0)  
   
   useEffect(() => {
     let price = 0;
-
     if (currentUser && currentUser.user_items) {
       currentUser.user_items.forEach((item) => {
         const quantity = item.quantity;
         price += quantity * item.price;
       });
     }
-
     setTotalPrice(price);
   }, [currentUser]);
 console.log(currentUser.user_items)
+
+
+
 return (
   <section className="h-100 h-custom" style={{'backgroundColor': '#eee'}}>
     <div className="container py-5 h-100">
@@ -38,15 +40,25 @@ return (
                       <p className="mb-0">You have {cartCount} items in your cart</p>
                     </div>                
                   </div>
-                  {currentUser?.user_items.map((item) => (
-                      <ItemCardCheckout key={item.id} item={item} />
-                    ))}
+                    {/* {currentUser?.user_items.length >= 1 ? (
+                      currentUser?.user_items.map((item) => (
+                        <ItemCardCheckout key={item.id} item={item} />
+                        ))
+                      ) : null} */}
+                    {currentUser?.user_items.length > 1 ? 
+                      currentUser.user_items.map((item) => (
+                        <ItemCardCheckout key={item.id} item={item} /*removeFromCart={removeFromCart}*/ />
+                      )) 
+                      : 
+                      null
+                    }
+                    
                 </div>
                 <div className="col-lg-5">
                   <div className="card bg-primary text-white rounded-3">
                     <div className="card-body">
                       <div className="d-flex justify-content-between align-items-center mb-4">
-                        <h5 className="mb-0">Card details</h5>
+                        <h5 className="mb-0">Card Details</h5>
                         <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp"
                           className="img-fluid rounded-3" style={{width: '45px'}} alt="Avatar"/>
                       </div>

@@ -60,7 +60,7 @@ export const adjustQty = (id, qty) => {
 // export const updateCart = (updatedCartItems) => {
 //   return { type: "UPDATE_USER_ITEMS", payload: updatedCartItems }
 // }
-export const updateCart = (total) => {
+export const updateCartCount = (total) => {
   return { type: "UPDATE_CART_COUNT", payload: total }
 }
 

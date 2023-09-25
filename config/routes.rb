@@ -9,7 +9,8 @@ Rails.application.routes.draw do
   post "/cart", to: "user_items#cart"
   post "/checkout", to: "user_items#post"
 
-
+  get "/items/:items_id/reviews", to: "reviews#index"
+  get "items/:items_id/reviews/:id", to: "reviews#show"
 
   # resources :users, only: :index do
   #   resources :user_items
@@ -22,12 +23,20 @@ Rails.application.routes.draw do
     resources :reviews
   end
 
+  resources :items, only: [:index, :show] do
+    resources :reviews, only: [:show, :index, :create, :destroy]
+  end
+
+
+
   # resources :user_items, only: [:index, :show, :create, :destroy, :update]
   resources :user_items, only: [:show, :index, :destroy]
   resources :users, except: [:update, :destroy]
   resources :items, only: [:index, :show]
   # TODO : may want to add a show route for reviews to search a partical item and have it's review associated.
   resources :reviews, except: [:show, :update]
+  # resources :reviews, only: [:show, :index, :create :destroy]
+
   # Routing logic: fallback requests for React Router.
   # Leave this here to help deploy your app later!
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }

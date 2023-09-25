@@ -1,8 +1,11 @@
 import React from 'react'
 
-const Counter = () => {
+const Counter = ({ itemId, item, itemQuantity }) => {
   return (
-    <div>Counter</div>
+    // <div>Counter</div>
+    <div>
+       <span>Item Quantity: {itemQuantity}</span>
+    </div>
   )
 }
 

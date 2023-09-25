@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
     skip_before_action :authorize, only: :create
+    # rescue_from ActiveRecord::RecordInvalid, with: render_not_found_response
+
 
     # GET /me 
     def show
@@ -19,6 +21,11 @@ class UsersController < ApplicationController
     # end
 
     private
+
+    def render_not_found_response
+        render json: { error: "Invalid Entry"}, status: :not_found
+    end
+
     def user_params
         params.permit(:username, :password, :password_confirmation)
     end

@@ -17,7 +17,7 @@ const ItemList = () => {
     navigate(`/items/${id}`)
   }
 
-  const handleAddItem= (item) => {
+  const handleAddItem = (item) => {
     dispatch(addToCart(item))
 }
 
@@ -33,7 +33,7 @@ const ItemList = () => {
           <div key={item.id} className="col-lg-3 col-md-6 col-sm-6 d-flex">
             <div className="card w-100 my-2 shadow-2-strong">
               <img src={shoe} alt={shoe} className="card-img-top" style={{"aspectRatio": "1 / 1"}} />
-              <div className="card-body d-flex flex-column">
+              <div className="card-bodly d-flex flex-column">
                 <h5 className="card-title">{item.name}</h5>
                 <p className="card-text">${item.price}</p>
                 <div className="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto">

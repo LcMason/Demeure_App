@@ -1,8 +1,15 @@
 class ReviewsController < ApplicationController
 skip_before_action :authorize, only: :index
+# rescue_from ActiveRecord::RecordInvalid, with: render_not_found_response
 
 def index
-    render json: Review.all
+    if params[item.id]
+        item = Item.find(params[:item_id])
+        reviews = item.reviews
+    else
+        reviews = Review.all
+    end
+    render json: reviews, include: :items
 end
 
 # TODO : may want to add a show route to search a specific item and see all associated reviews.
@@ -11,6 +18,9 @@ end
     def create
         @review = Review.create!(review_params)
         render json: @review, status: :created
+    rescue ActiveRecord::RecordInvalid # => invalid
+        render_not_found_response
+        # render json: { errors: review.errors.full_messages }, status: :unprocessable_entity
     end
 
      def destroy
@@ -24,6 +34,11 @@ end
     end
 
     private
+
+    # def render_not_found_response
+    #     render json: { error: "Invalid Entry"}, status: :unprocessable_entity
+    # end
+
     def review_params
         params.permit(:title, :review, :user_id, :item_id)
     end
