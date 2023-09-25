@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
-import { addToCart, removeFromCart, adjustQty, updateCart } from '../actions/items'
+import { addToCart, removeFromCart, adjustQty, updateCartCount } from '../actions/items'
 import { addReview } from "../actions/reviews"
 import CheckoutImg from "../images/CheckoutImg.jpg"
 
@@ -18,18 +18,18 @@ const ItemDetails = () => {
     const navigate = useNavigate();
     const { items, currentUser, cartCount } = useSelector(store => store.usersReducer)
     const currentItem = items?.find((item) => item.id === parseInt(id))
-    const itemQ = currentUser?.user_items.find((item) => item.id === currentItem.id)
-    const [qty, setQty] = useState(itemQ?.quantity || 1);
+    const itemQ = currentUser?.userItems.find((item) => item.id === currentItem.id)
+    const [qty, setQty] = useState(itemQ?.quantity || 0);
     const [title, setTitle] = useState("")
     const [review, setReview] = useState("")
     const [cartTotal, setCartTotal] = useState(cartCount)
 
     useEffect(() => {
-        const itemQ = currentUser?.user_items.find((item) => item.id === currentItem.id);
+        const itemQ = currentUser?.userItems.find((item) => item.id === currentItem.id);
         setQty(itemQ?.quantity || 0);
        
         // Calculate the cart total based on the quantity and price of the items in the cart
-        const updatedCartTotal = currentUser?.user_items?.reduce((total, item) => {
+        const updatedCartTotal = currentUser?.userItems?.reduce((total, item) => {
         return total + item.quantity * item.price;
         }, 0);
         setCartTotal(updatedCartTotal || 0);
@@ -42,8 +42,8 @@ console.log(itemQ, "itemQ")
     const handleAddItem = () => {
         const updatedQty = parseInt(qty);
         const updatedItem = { ...currentItem, quantity: updatedQty }
-        // const newUserItems = [...currentUser.user_items, updatedItem];
-        // const updatedUser = {...currentUser, user_items: newUserItems}
+        // const newUserItems = [...currentUser.userItems, updatedItem];
+        // const updatedUser = {...currentUser, userItems: newUserItems}
         if (itemQ) {
           // Item is already in the cart, adjust the quantity
           dispatch(adjustQty(currentItem.id, updatedQty))
@@ -112,7 +112,7 @@ return (
                         <p>{currentItem.description}</p>                    
                         <form className="d-flex justify-content-left" onSubmit={handleSubmit}>                        
                             <div className="form-outline me-1" style={{width: '100px'}}>
-                                <input min="0" type="number" defaultValue={qty} className="form-control" onChange={(e) => setQty(parseInt(e.target.value))} />
+                                <input min="0" type="number" defaultValue="1" className="form-control" onChange={(e) => setQty(qty + parseInt(e.target.value))} />
                             </div>                        
                             <button /*onClick={() => handleAddItem(currentItem.id)}*/ className="btn btn-primary shadow-0 me-1" type="submit">Add To Cart
                                 <i className="fas fa-shopping-cart ms-1"></i>

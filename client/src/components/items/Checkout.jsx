@@ -10,15 +10,15 @@ const Checkout = () => {
   
   useEffect(() => {
     let price = 0;
-    if (currentUser && currentUser.user_items) {
-      currentUser.user_items.forEach((item) => {
+    if (currentUser && currentUser.userItems) {
+      currentUser.userItems.forEach((item) => {
         const quantity = item.quantity;
         price += quantity * item.price;
       });
     }
     setTotalPrice(price);
   }, [currentUser]);
-console.log(currentUser.user_items)
+console.log(currentUser.userItems)
 
 
 
@@ -40,13 +40,13 @@ return (
                       <p className="mb-0">You have {cartCount} items in your cart</p>
                     </div>                
                   </div>
-                    {/* {currentUser?.user_items.length >= 1 ? (
-                      currentUser?.user_items.map((item) => (
+                    {/* {currentUser?.userItems.length >= 1 ? (
+                      currentUser?.userItems.map((item) => (
                         <ItemCardCheckout key={item.id} item={item} />
                         ))
                       ) : null} */}
-                    {currentUser?.user_items.length > 1 ? 
-                      currentUser.user_items.map((item) => (
+                    {currentUser?.userItems.length > 1 ? 
+                      currentUser.userItems.map((item) => (
                         <ItemCardCheckout key={item.id} item={item} /*removeFromCart={removeFromCart}*/ />
                       )) 
                       : 

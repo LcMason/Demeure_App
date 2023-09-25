@@ -3,9 +3,7 @@ users: [],
 currentUser: null,
 cartCount: 0,
 loggedIn: false,
-// TODO : do i need a cartItems variable or can i use user_items. Why is user_items snake cased?
-cartItems: [],
-user_items: [], 
+userItems: [], 
 showItem: null, 
 items: [],
 reviews: [],
@@ -43,7 +41,7 @@ const usersReducer = (state=initialState, action) => {
         case "LOAD_USER_ITEMS":
           return {
             ...state,
-              user_items: action.payload  
+              userItems: action.payload  
         }   
      
         case "SHOW_ITEM":
@@ -55,35 +53,78 @@ const usersReducer = (state=initialState, action) => {
         case "UPDATE_USER_ITEMS":
         return {
           ...state,
-          currentUser: {...state.currentUser, user_items: action.payload}
+          currentUser: {...state.currentUser, userItems: action.payload}
         }
         // TODO 1: fix ADD_TO_CART . ' inCart' is undefined on the first click.
         //how is cartItem from the controller accessbile in my usersReduer
-        case "ADD_TO_CART":
-          const item = action.payload;
-          console.log(item, "item")
-          const inCart = state.currentUser?.user_items?.find(
-          (cartItem) => cartItem.id === item.id)
-          console.log(inCart, "inCart variable")
-          const updatedUserItems = inCart
-          ? state.currentUser.user_items.map((cartItem) =>
-              cartItem.id === item.id
-              // add variable declared on line 61 
-                ? { ...cartItem, quantity: cartItem.quantity + 1 }
-           
-                : cartItem
-                // add variable declared on line 70
-            )
-            // TODO : cartCount is not updating from /itemDetails route
-          : [...state.currentUser?.user_items ?? [], { ...item, quantity: 1 }]
-          const updatedCartCount = state.cartCount + 1; // Increment the cart count
-          return {
-            ...state,
-            currentUser: {...state.currentUser, user_items: updatedUserItems},
-            cartCount: updatedCartCount
-        }
+        // case "ADD_TO_CART":
+        //   const item = action.payload;
+        //   console.log(item, "item")
+        //   const inCart = state.currentUser?.userItems?.find(
+        //   (cartItem) => cartItem.id === item.id)
+        //   const updatedUserItems = inCart
+        //   ? state.currentUser.userItems.map((cartItem) =>
+        //   cartItem.id === item.id
+        //   // add variable declared on line 61 
+        //   ? { ...cartItem, quantity: cartItem.quantity + 1 }
+          
+        //   : cartItem
+        //   // add variable declared on line 70
+        //   )
+        //   // TODO : cartCount is not updating from /itemDetails route
+        //   : [...state.currentUser?.userItems ?? [], { ...item, quantity: 1 }]
+        //   console.log(inCart, "inCart variable")
+        //   const updatedCartCount = state.cartCount + 1; // Increment the cart count
+        //   return {
+        //     ...state,
+        //     currentUser: {...state.currentUser, userItems: updatedUserItems},
+        //     cartCount: updatedCartCount
+        // }
 
+       case "ADD_TO_CART": {
+    console.log('ADD_TO_CART action triggered', action);
 
+    const item = action.payload;
+    console.log('Item from payload:', item);
+
+    const currentItems = state.currentUser?.userItems || [];
+    console.log('Current items:', currentItems);
+
+    const existingItem = currentItems.find(userItem => {
+        console.log('Checking cart item:', userItem);
+        return userItem.id === item.id;
+    });
+    console.log('Existing item:', existingItem); // before an item is placed into the cart
+
+    let updatedUserItems;
+    if (existingItem) {
+        updatedUserItems = currentItems.map(userItem => {
+            console.log('Mapping cart item:', userItem);
+            if (userItem.id === item.id) {
+                console.log('Found item to update:', userItem);
+                return { ...userItem, quantity: userItem.quantity + 1 };
+            }
+            return userItem;
+        });
+    } else {
+        console.log('Item not found in cart, adding new item');
+        updatedUserItems = [...currentItems, { ...item, quantity: 1 }];
+    }
+    console.log('Updated user items:', updatedUserItems); // after item placed in cart
+
+    const updatedCartCount = (Number(state.cartCount) + 1);
+    console.log('Updated cart count:', updatedCartCount);
+    console.log('Updated cart count:', typeof updatedCartCount);
+
+    return {
+        ...state,
+        currentUser: {
+            ...state.currentUser,
+            userItems: updatedUserItems
+        },
+        cartCount: updatedCartCount
+    };
+}
 
         case "UPDATE_CART_COUNT":
           return {
@@ -96,7 +137,7 @@ const usersReducer = (state=initialState, action) => {
             ...state,
             currentUser: {
               ...state.currentUser,
-              user_items: state.currentUser.user_items.map((item) =>
+              userItems: state.currentUser.userItems.map((item) =>
                 item.id === action.payload.id
                   ? { ...item, quantity: action.payload.quantity }
                   : item
@@ -106,7 +147,7 @@ const usersReducer = (state=initialState, action) => {
         case "REMOVE_FROM_CART":
           return {
               ...state,
-              user_items: state.user_items.filter(item => item.id !== action.payload)
+              userItems: state.userItems.filter(item => item.id !== action.payload)
         }
         case "LOAD_REVIEWS":
           return {

@@ -29,7 +29,7 @@ function App() {
   
   useEffect(() => {
     // Calculate the total quantity of items in the cart
-    const totalQuantity = currentUser?.user_items?.reduce(
+    const totalQuantity = currentUser?.userItems?.reduce(
       (total, item) => total + item.quantity,
       0
     );
@@ -49,7 +49,7 @@ function App() {
                <Route path="/items" element={<ItemList loading={ loading } /> } />  
                <Route path="/about" element={<About /> } /> 
                <Route path="/checkout" element={<Checkout cartCount={cartCount} /> } /> 
-               {/* <Route path="/checkout" element={<Checkout cartCount={currentUser.user_items} /> } />  */}
+               {/* <Route path="/checkout" element={<Checkout cartCount={currentUser.userItems} /> } />  */}
                <Route path="/items/:id" element={<ItemDetails cartCount={cartCount} /> } /> 
 
 
