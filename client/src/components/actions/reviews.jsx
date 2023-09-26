@@ -5,17 +5,17 @@ import { setErrors, clearErrors } from "./errors";
 
 // TODO: finish building out loadReviews action file. Look at items action file for reference.
 
-export const loadReviews = () => {
-    return dispatch => {
-       fetch('/reviews')
-       .then(resp => resp.json())
-       .then(data => {
-        const action = {
-            type: "LOAD_REVIEWS", payload: data }
-        dispatch(action)
-       })
-    }
-}
+// export const loadReviews = () => {
+//     return dispatch => {
+//        fetch('/reviews')
+//        .then(resp => resp.json())
+//        .then(data => {
+//         const action = {
+//             type: "LOAD_REVIEWS", payload: data }
+//         dispatch(action)
+//        })
+//     }
+// }
 
 export const addReview = (review) => {
     return dispatch => {

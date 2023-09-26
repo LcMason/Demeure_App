@@ -149,11 +149,12 @@ const usersReducer = (state=initialState, action) => {
               ...state,
               userItems: state.userItems.filter(item => item.id !== action.payload)
         }
-        case "LOAD_REVIEWS":
-          return {
-            ...state,
-            reviews: action.payload
-        }
+        // case "LOAD_REVIEWS":
+        //   return {
+        //     ...state,
+        //     reviews: action.payload
+        // }
+
         case "ADD_REVIEW":
           const updatedItem = {...state.showItem, reviews: [...state.reviews, action.payload] }
           return {

@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   post "/cart", to: "user_items#cart"
   post "/checkout", to: "user_items#post"
 
-  get "/items/:items_id/reviews", to: "reviews#index"
+  # get "/items/:items_id/reviews", to: "reviews#index"
   get "items/:items_id/reviews/:id", to: "reviews#show"
 
   # resources :users, only: :index do
@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   end
 
   resources :items, only: [:index, :show] do
-    resources :reviews, only: [:show, :index, :create, :destroy]
+    resources :reviews, only: [:show, :create, :destroy]
   end
 
 

@@ -11,7 +11,7 @@ import About from './components/About';
 // import { loadItems } from './components/actions/items';
 import { loadItems, updateCartCount } from './components/actions/items';
 import ItemList from './components/items/ItemList';
-import { loadReviews } from './components/actions/reviews';
+// import { loadReviews } from './components/actions/reviews';
 import { loadCurrentUser } from './components/actions/users';
 import ItemDetails from './components/items/ItemDetails';
 
@@ -23,7 +23,7 @@ function App() {
   useEffect(() => {
     dispatch(loadItems())
     dispatch(loadCurrentUser(setLoading))
-    dispatch(loadReviews())
+    // dispatch(loadReviews())
 
   }, [dispatch])
   
