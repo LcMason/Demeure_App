@@ -8,7 +8,7 @@ class ItemsController < ApplicationController
 
     # TODO : if we GET one item, we should also see that item's reviews
     def show
-        render json: @item, status: :ok
+        render json: @item, serializer: :ReviewSerializer 
     end
 
     private 

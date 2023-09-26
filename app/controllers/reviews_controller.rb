@@ -2,6 +2,8 @@ class ReviewsController < ApplicationController
 skip_before_action :authorize, only: :index
 # rescue_from ActiveRecord::RecordInvalid, with: render_not_found_response
 
+# TODO : may delete index action here due to reviews being in our items_serializer. Reviews only need to be associated with the item.
+# it's uneccessary to load up the reviews on its own.
 def index
     if params[item.id]
         item = Item.find(params[:item_id])
