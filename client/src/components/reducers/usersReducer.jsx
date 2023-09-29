@@ -113,7 +113,7 @@ const usersReducer = (state=initialState, action) => {
     console.log('Updated user items:', updatedUserItems); // after item placed in cart
 
     const updatedCartCount = (Number(state.cartCount) + 1);
-    console.log('Updated cart count:', updatedCartCount);
+    // console.log('Updated cart count:', updatedCartCount);
     console.log('Updated cart count:', typeof updatedCartCount);
 
     return {
