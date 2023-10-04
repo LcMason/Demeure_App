@@ -2,10 +2,11 @@
 import dingyShoes from "../images/dingyShoes.jpg"
 import { Link } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
-import { removeFromCart, adjustQty } from "../actions/items" //should this be brought in via storeReducer
+import { removeFromCart, adjustQty } from "../actions/items" 
 // import { Checkout } from 'react'
 
-
+// TODO: adjustQty may need to be used in this componenet to adjust once i hit the 'remove' button.
+// TODO: may need to write conditonal statement to decrement -1 on each click. Once item hits 0, remove div.
 const ItemCardCheckout = ({item, onIncrement, onDecrement}) => {
   const { items, currentUser, cartCount } = useSelector(store => store.usersReducer)
   const dispatch = useDispatch();
@@ -21,12 +22,33 @@ const ItemCardCheckout = ({item, onIncrement, onDecrement}) => {
   // };
 
   // remove DOM Element when value is 0
-  const removeElement = () => {
-    if (currentUser?.cartCount >= 1)
-      return cartCount
-    else {
-       return null
-  }}
+  // const removeItemFromCart = (id) => {
+  //   dispatch(removeFromCart(id))
+  // }
+
+  const removeItemFromCart = (id) => {
+  if (id !== null && id !== undefined) {
+    dispatch(removeFromCart(id));
+  } else {
+    console.error("Invalid id:", id);
+    // Optionally, you could handle the case where id is null or undefined here
+  }
+};
+
+//  const removeItemFromCart = (id) => {
+//   if (action.type === "REMOVE_FROM_CART") {
+//     return { currentUser.
+
+//     }
+//     dispatch(removeFromCart(id));
+//   } else {
+//     console.error("Invalid id:", id);
+//     // Optionally, you could handle the case where id is null or undefined here
+//   }
+// };
+    
+// TODO : Build out a REMOVE_FROM_CART action and reducer
+
 
   // const removeElement = (id) => {
   //   // let newQuantity = 
@@ -64,7 +86,7 @@ const ItemCardCheckout = ({item, onIncrement, onDecrement}) => {
                         </div>
                         <div>
                           {/* <Checkout visible={visible} /> */}
-                        <button onClick={removeElement}>Remove</button>
+                        <button onClick={() => {removeItemFromCart(item.id)}}>Remove</button>
                         </div>
                         {/* <button onClick={() => handleClick(item.id)} className="btn btn-primary shadow-0 me-1">Details</button> */}
 

@@ -18,9 +18,12 @@ const Checkout = () => {
     }
     setTotalPrice(price);
   }, [currentUser]);
-console.log(currentUser.userItems)
 
 
+
+  const handleClick = () => {
+
+  }
 
 return (
   <section className="h-100 h-custom" style={{'backgroundColor': '#eee'}}>
@@ -38,20 +41,19 @@ return (
                     <div>
                       <p className="mb-1">Shopping cart</p>
                       <p className="mb-0">You have {cartCount} items in your cart</p>
-                    </div>                
+                    </div> 
                   </div>
                     {/* {currentUser?.userItems.length >= 1 ? (
                       currentUser?.userItems.map((item) => (
                         <ItemCardCheckout key={item.id} item={item} />
                         ))
                       ) : null} */}
-                    {currentUser?.userItems.length > 1 ? 
-                      currentUser.userItems.map((item) => (
-                        <ItemCardCheckout key={item.id} item={item} /*removeFromCart={removeFromCart}*/ />
-                      )) 
-                      : 
-                      null
-                    }
+                    {currentUser?.userItems && currentUser?.userItems.map((item) => (
+            item.quantity > 0 && <ItemCardCheckout key={item.id} item={item}  /> 
+        ))
+    }
+                       
+                    
                     
                 </div>
                 <div className="col-lg-5">
