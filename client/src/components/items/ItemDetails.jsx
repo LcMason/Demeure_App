@@ -13,19 +13,19 @@ import CheckoutImg from "../images/CheckoutImg.jpg"
 //TODO: review user_items_controller cart method. select the id that matches the item_id and update the quantity + 1. Review Rails Resource Routing: Update
 
 const ItemDetails = () => {    
+    const { items, currentUser, cartCount } = useSelector(store => store.usersReducer)
     const { id } = useParams()
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { items, currentUser, cartCount } = useSelector(store => store.usersReducer)
     const currentItem = items?.find((item) => item.id === parseInt(id))
-    const itemQ = currentUser?.userItems.find((item) => item.id === currentItem.id)
+    const itemQ = currentUser?.userItems?.find((item) => item.id === currentItem.id)
     const [qty, setQty] = useState(itemQ?.quantity || 0);
     const [title, setTitle] = useState("")
     const [review, setReview] = useState("")
     const [cartTotal, setCartTotal] = useState(cartCount)
 
     useEffect(() => {
-        const itemQ = currentUser?.userItems.find((item) => item.id === currentItem.id);
+        const itemQ = currentUser?.userItems?.find((item) => item.id === currentItem.id);
         setQty(itemQ?.quantity || 0);
        
         // Calculate the cart total based on the quantity and price of the items in the cart
@@ -39,7 +39,8 @@ const ItemDetails = () => {
     console.log(qty, "qty")
 console.log(itemQ, "itemQ")
 // TODO: handleAddItem function is not working.
-    const handleAddItem = () => {
+    const handleAddItem = (id) => {
+        console.log(id)
         const updatedQty = parseInt(qty);
         const updatedItem = { ...currentItem, quantity: updatedQty }
         // const newUserItems = [...currentUser.userItems, updatedItem];
@@ -51,8 +52,8 @@ console.log(itemQ, "itemQ")
           // Item is not in the cart, add it to the cart
           dispatch(addToCart(updatedItem))
         }      
-//         const updatedCartTotal = cartTotal + updatedQty * currentItem.price;
-//   setCartTotal(updatedCartTotal);
+        const updatedCartTotal = cartTotal + updatedQty * currentItem.price;
+  setCartTotal(updatedCartTotal);
         navigate('/checkout')
     }
       
@@ -65,10 +66,10 @@ console.log(itemQ, "itemQ")
         }
     };
       
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        handleAddItem()
-    }
+    // const handleSubmit = (event) => {
+    //     event.preventDefault();
+    //     handleAddItem()
+    // }
   
       
 
@@ -110,11 +111,11 @@ return (
                         <strong><p className="text-bold">Description</p></strong>
                         <p>{currentItem.name}</p>
                         <p>{currentItem.description}</p>                    
-                        <form className="d-flex justify-content-left" onSubmit={handleSubmit}>                        
+                        <form className="d-flex justify-content-left">                       
                             <div className="form-outline me-1" style={{width: '100px'}}>
-                                <input min="0" type="number" defaultValue="1" className="form-control" onChange={(e) => setQty(qty + parseInt(e.target.value))} />
+                                <input min="0" type="number" defaultValue={qty} className="form-control" onChange={(e) => setQty(parseInt(e.target.value))} />
                             </div>                        
-                            <button /*onClick={() => handleAddItem(currentItem.id)}*/ className="btn btn-primary shadow-0 me-1" type="submit">Add To Cart
+                            <button onClick={() => handleAddItem(currentItem.id)} className="btn btn-primary shadow-0 me-1" type="button">Add To Cart
                                 <i className="fas fa-shopping-cart ms-1"></i>
                             </button>
                             <button onClick={() => handleRemoveItem(currentItem.id)} className="btn btn-primary shadow-0 me-1"><i className="bi-trash"></i>

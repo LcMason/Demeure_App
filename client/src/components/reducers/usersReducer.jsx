@@ -155,44 +155,26 @@ const usersReducer = (state=initialState, action) => {
         // TODO: itemId is undefined. 
         // TODO: Do i need to use let to define a variable that will change with the cartCount? Where will I define this? 
        case "REMOVE_FROM_CART": {
-     
       const itemId = action.payload.id;
-    
-
-       console.log("Item ID from action payload:", itemId);
        // the itemId console logged on 158 is undefined. figure out why. look at the action > items to see if the action is written correctly.
-
-      const currentItems = state.currentUser?.userItems || [];
+      let currentItems = state.currentUser?.userItems || [];
       const existingItem = currentItems.find(userItem => userItem.id === itemId);
-
-      let updatedUserItems;
-      if (existingItem) {
-        updatedUserItems = currentItems.map(userItem => {
-          if (userItem.id === itemId) {
-            const updatedQuantity = userItem.quantity - 1;
-            return updatedQuantity > 0
-            ? { ...userItem, quantity: updatedQuantity }
-            : null;
-          }
-          console.log(userItem, "I am the userItem")
-          return userItem;
-        }).filter(item => item !== null);
+        // if the qunatity is greater than 1, we reduce the qunatity by 1. 
+      if (existingItem.quantity === 1) { 
+        currentItems = currentItems.filter(item => item.id !== itemId)
       } else {
-        updatedUserItems = [...currentItems];
+        existingItem.quantity--
       }
-
       const updatedCartCount = Math.max(0, (Number(state.cartCount) - 1));
-
       return {
         ...state,
         currentUser: {
           ...state.currentUser,
-          userItems: updatedUserItems
+          userItems: currentItems
         },
         cartCount: updatedCartCount,
       };
     }
-
 
         case "ADD_REVIEW":
           const updatedItem = {...state.showItem, reviews: [...state.reviews, action.payload] }
