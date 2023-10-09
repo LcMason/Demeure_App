@@ -44,9 +44,9 @@ function App() {
      
              <Routes>
                <Route path="/" element={<Home />} /> 
-               <Route path="/login" element={<Login />} /> 
+               <Route path="/login" element={<Login loading={ loading } />} /> 
                <Route path="/signup" element={<Signup loading={ loading } /> } />  
-               <Route path="/items" element={<ItemList loading={ loading } /> } />  
+               <Route path="/items" element={<ItemList /*loading={ loading }*/ /> } />  
                <Route path="/about" element={<About /> } /> 
                <Route path="/checkout" element={<Checkout cartCount={cartCount} /> } /> 
                {/* <Route path="/checkout" element={<Checkout cartCount={currentUser.userItems} /> } />  */}

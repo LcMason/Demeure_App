@@ -5,11 +5,6 @@ import { addToCart, removeFromCart, adjustQty, updateCartCount } from '../action
 import { addReview } from "../actions/reviews"
 import CheckoutImg from "../images/CheckoutImg.jpg"
 
-
-// TODO when clicking add to cart, we navigate to the checkout page and the item is only added to the cart on the first click not added to cart.
-// TODO: line 19. .find finds the first element in an array that satisifes a condition. 
-
-// TODO: does this component need a PATCH to update the quantity of items once AddToCart is clicked. 
 //TODO: review user_items_controller cart method. select the id that matches the item_id and update the quantity + 1. Review Rails Resource Routing: Update
 
 const ItemDetails = () => {    
@@ -27,8 +22,6 @@ const ItemDetails = () => {
     useEffect(() => {
         const itemQ = currentUser?.userItems?.find((item) => item.id === currentItem.id);
         setQty(itemQ?.quantity || 0);
-       
-        // Calculate the cart total based on the quantity and price of the items in the cart
         const updatedCartTotal = currentUser?.userItems?.reduce((total, item) => {
         return total + item.quantity * item.price;
         }, 0);
@@ -38,13 +31,11 @@ const ItemDetails = () => {
     console.log(cartTotal, "cartTotal");
     console.log(qty, "qty")
 console.log(itemQ, "itemQ")
-// TODO: handleAddItem function is not working.
+
     const handleAddItem = (id) => {
         console.log(id)
         const updatedQty = parseInt(qty);
         const updatedItem = { ...currentItem, quantity: updatedQty }
-        // const newUserItems = [...currentUser.userItems, updatedItem];
-        // const updatedUser = {...currentUser, userItems: newUserItems}
         if (itemQ) {
           // Item is already in the cart, adjust the quantity
           dispatch(adjustQty(currentItem.id, updatedQty))
@@ -66,13 +57,6 @@ console.log(itemQ, "itemQ")
         }
     };
       
-    // const handleSubmit = (event) => {
-    //     event.preventDefault();
-    //     handleAddItem()
-    // }
-  
-      
-
     const submitReviewForm = (e) =>  {
         e.preventDefault();
         
