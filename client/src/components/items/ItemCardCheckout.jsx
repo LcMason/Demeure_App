@@ -1,6 +1,6 @@
-// import React, {useState} from 'react'
+import React, {useState} from 'react'
 import dingyShoes from "../images/dingyShoes.jpg"
-import { Link } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { removeFromCart, adjustQty } from "../actions/items" 
 // import { Checkout } from 'react'
@@ -10,6 +10,12 @@ import { removeFromCart, adjustQty } from "../actions/items"
 const ItemCardCheckout = ({item, onIncrement, onDecrement}) => {
   const { items, currentUser, cartCount } = useSelector(store => store.usersReducer)
   const dispatch = useDispatch();
+  const { id } = useParams()
+  const currentItem = items?.find((item) => item.id === parseInt(id))
+  console.log("current Item", currentItem)
+  // Nicholas : why do I need to check the value of currentItem to see if it exists
+  const itemQ = currentItem && currentUser?.userItems?.find((item) => item.id === currentItem.id)
+  const [qty, setQty] = useState(itemQ?.quantity || 0);
   // const [visible, setVisible] = useState(true);
 
 // stretch goals - increment and decrement cart totals from /checkout route.
@@ -87,6 +93,9 @@ const ItemCardCheckout = ({item, onIncrement, onDecrement}) => {
                         <div>
                           {/* <Checkout visible={visible} /> */}
                         <button onClick={() => {removeItemFromCart(item.id)}}>Remove</button>
+                        </div>
+                        <div>
+                          <input min="0" type="number" defaultValue={qty} className="form-control" onChange={(e) => setQty(parseInt(e.target.value))} />
                         </div>
                         {/* <button onClick={() => handleClick(item.id)} className="btn btn-primary shadow-0 me-1">Details</button> */}
 

@@ -8,6 +8,7 @@ const Checkout = () => {
   const { currentUser, cartCount, removeFromCart } = useSelector(store => store.usersReducer)
   const [totalPrice, setTotalPrice] = useState(0)  
   
+  
   useEffect(() => {
     let price = 0;
     if (currentUser && currentUser.userItems) {
