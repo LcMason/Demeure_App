@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import dingyShoes from "../images/dingyShoes.jpg"
 import { useParams, Link } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
@@ -13,9 +13,10 @@ const ItemCardCheckout = ({item, onIncrement, onDecrement}) => {
   const { id } = useParams()
   const currentItem = items?.find((item) => item.id === parseInt(id))
   console.log("current Item", currentItem)
-  // Nicholas : why do I need to check the value of currentItem to see if it exists
+  // Nicholas : why do I need to check the value of currentItem to see if it exists if we dont have to check this for ItemDetails?
   const itemQ = currentItem && currentUser?.userItems?.find((item) => item.id === currentItem.id)
   const [qty, setQty] = useState(itemQ?.quantity || 0);
+  const [cartTotal, setCartTotal] = useState(cartCount)
   // const [visible, setVisible] = useState(true);
 
 // stretch goals - increment and decrement cart totals from /checkout route.
@@ -31,6 +32,36 @@ const ItemCardCheckout = ({item, onIncrement, onDecrement}) => {
   // const removeItemFromCart = (id) => {
   //   dispatch(removeFromCart(id))
   // }
+
+  useEffect(() => {
+        const itemQ = currentItem && currentUser?.userItems?.find((item) => item.id === currentItem.id);
+        setQty(itemQ?.quantity || 0);
+        const updatedCartTotal = currentUser?.userItems?.reduce((total, item) => {
+        return total + item.quantity * item.price;
+        }, 0);
+        setCartTotal(updatedCartTotal || 0);
+    }, [currentUser, currentItem, cartCount]);
+
+
+   const handleAdjustQuantity = (id, quantityAdjustment) => {
+    const updatedQty = parseInt(qty) + quantityAdjustment;
+
+    if (updatedQty < 1) {
+        // If the quantity becomes less than 1, remove the item from the cart
+        dispatch(removeFromCart(id));
+    } else {
+        const updatedItem = { ...currentItem, quantity: updatedQty };
+        if (itemQ) {
+            dispatch(adjustQty(id, updatedQty));
+        // } else {
+        //     dispatch(addToCart(updatedItem));
+        }      
+    }
+
+    const updatedCartTotal = cartTotal + quantityAdjustment * currentItem.price;
+    setCartTotal(updatedCartTotal);
+}
+
 
   const removeItemFromCart = (id) => {
   if (id !== null && id !== undefined) {
@@ -95,7 +126,8 @@ const ItemCardCheckout = ({item, onIncrement, onDecrement}) => {
                         <button onClick={() => {removeItemFromCart(item.id)}}>Remove</button>
                         </div>
                         <div>
-                          <input min="0" type="number" defaultValue={qty} className="form-control" onChange={(e) => setQty(parseInt(e.target.value))} />
+                          {/* <input min="0" type="number" defaultValue={qty} className="form-control" onChange={(e) => setQty(parseInt(e.target.value))} /> */}
+                          <input min="0" type="number" defaultValue={qty} className="form-control" onChange={handleAdjustQuantity} />
                         </div>
                         {/* <button onClick={() => handleClick(item.id)} className="btn btn-primary shadow-0 me-1">Details</button> */}
 

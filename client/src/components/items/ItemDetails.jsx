@@ -22,11 +22,15 @@ const ItemDetails = () => {
     useEffect(() => {
         const itemQ = currentUser?.userItems?.find((item) => item.id === currentItem.id);
         setQty(itemQ?.quantity || 0);
+        // Nicholas : How do we have access to .quantity on itemQ? Quantity is an attribute on user_items
+        // Nicholas : Why are we calling the setter function (setQty) with the same code that is in state in our useEffect?
         const updatedCartTotal = currentUser?.userItems?.reduce((total, item) => {
         return total + item.quantity * item.price;
         }, 0);
         setCartTotal(updatedCartTotal || 0);
     }, [currentUser, currentItem, cartCount]);
+    // Nicholas : Why do we have currentUser in the dependencies array if we're only looking for teh currentItem & cartCount to change?
+    // Nicholas : the user wont change if we are the logged in user. 
     
     console.log(cartTotal, "cartTotal");
     console.log(qty, "qty")
@@ -35,6 +39,7 @@ console.log(itemQ, "itemQ")
     const handleAddItem = (id) => {
         console.log(id)
         const updatedQty = parseInt(qty);
+        // Nicholas : Where are we getting the quantity attribute from on line 43?
         const updatedItem = { ...currentItem, quantity: updatedQty }
         if (itemQ) {
           // Item is already in the cart, adjust the quantity
