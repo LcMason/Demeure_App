@@ -13,34 +13,39 @@ const ItemCardCheckout = ({item, onIncrement, onDecrement}) => {
   const { id } = useParams()
   const currentItem = items?.find((item) => item.id === parseInt(id))
   console.log("current Item", currentItem)
-  // Nicholas : why do I need to check the value of currentItem to see if it exists if we dont have to check this for ItemDetails?
-  const itemQ = currentItem && currentUser?.userItems?.find((item) => item.id === currentItem.id)
+ 
+  const itemQ = currentItem && currentUser?.userItems?.find(item => item.id === currentItem.id)
   const [qty, setQty] = useState(itemQ?.quantity || 0);
   const [cartTotal, setCartTotal] = useState(cartCount)
   // const [visible, setVisible] = useState(true);
 
 // stretch goals - increment and decrement cart totals from /checkout route.
-  // const handleIncrement = () => {
-  //   onIncrement(id);
-  // };
+  const handleIncrement = () => {
+    setQty(qty + 1);
+  };
 
-  // const handleDecrement = () => {
-  //   onDecrement(id);
-  // };
+  const handleDecrement = () => {
+    if (qty < 1){
+      dispatch(removeFromCart(item.id))
+    } else {
+      setQty(qty - 1);
+    }
+  };
 
   // remove DOM Element when value is 0
   // const removeItemFromCart = (id) => {
   //   dispatch(removeFromCart(id))
   // }
 
-  useEffect(() => {
-        const itemQ = currentItem && currentUser?.userItems?.find((item) => item.id === currentItem.id);
-        setQty(itemQ?.quantity || 0);
-        const updatedCartTotal = currentUser?.userItems?.reduce((total, item) => {
-        return total + item.quantity * item.price;
-        }, 0);
-        setCartTotal(updatedCartTotal || 0);
-    }, [currentUser, currentItem, cartCount]);
+  // Nicholas : Do i need this useEffect.
+  // useEffect(() => {
+  //       const itemQ = currentItem && currentUser?.userItems?.find((item) => item.id === currentItem.id);
+  //       setQty(itemQ?.quantity || 0);
+  //       const updatedCartTotal = currentUser?.userItems?.reduce((total, item) => {
+  //       return total + item.quantity * item.price;
+  //       }, 0);
+  //       setCartTotal(updatedCartTotal || 0);
+  //   }, [currentUser, currentItem, cartCount]);
 
 
    const handleAdjustQuantity = (id, quantityAdjustment) => {
@@ -57,7 +62,7 @@ const ItemCardCheckout = ({item, onIncrement, onDecrement}) => {
         //     dispatch(addToCart(updatedItem));
         }      
     }
-
+    // Nicholas : .price is throwing a TypeError
     const updatedCartTotal = cartTotal + quantityAdjustment * currentItem.price;
     setCartTotal(updatedCartTotal);
 }
@@ -127,10 +132,22 @@ const ItemCardCheckout = ({item, onIncrement, onDecrement}) => {
                         </div>
                         <div>
                           {/* <input min="0" type="number" defaultValue={qty} className="form-control" onChange={(e) => setQty(parseInt(e.target.value))} /> */}
-                          <input min="0" type="number" defaultValue={qty} className="form-control" onChange={handleAdjustQuantity} />
+                          <input min="0" type="number" value={qty} className="form-control" onChange={(e) => setQty(parseInt(e.target.value))} />
                         </div>
-                        {/* <button onClick={() => handleClick(item.id)} className="btn btn-primary shadow-0 me-1">Details</button> */}
-
+                        <div>
+                        <button
+                          className="btn btn-sm btn-primary ms-2"
+                          onClick={handleIncrement}
+                        >
+                          +
+                        </button>
+                        <button
+                          className="btn btn-sm btn-primary ms-2"
+                          onClick={handleDecrement}
+                        >
+                          -
+                        </button>
+                      </div>
                         {/* <div> stretch goal
                         <button className="btn btn-sm btn-primary ms-2" onClick={handleDecrement}>-</button>
                         <button className="btn btn-sm btn-primary ms-2"  onClick={handleIncrement}>+</button>

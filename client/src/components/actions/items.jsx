@@ -114,35 +114,3 @@ export const showItem = (id) => {
       });
   };
 };
-// export const removeItem = (item) => {
-//   return dispatch => {
-//     fetch(`/items/${item.id}`)
-//       .then(resp => resp.json())
-//       .then(data => {
-//         const action = {
-//           type: "REMOVE_ITEM",
-//           payload: {
-//             ...data,
-//             quantity: data.quantity - 1 // Increment the quantity by 1
-//           }
-//         };
-//         dispatch(action);
-//       });
-//   };
-// };
-
-// export const addItemToCart= (item, navigate) => {
-//   return dispatch => {
-//     fetch(`/items/${ item.id }`)
-//       .then(resp => resp.json())
-//       .then(data => {
-//         const action = {
-//           type: "ADD_ITEM_TO_CART",
-//           payload: data
-//         };
-//         dispatch(action)
-//         navigate('/cart')
-//       });
-//   }
-// }
-

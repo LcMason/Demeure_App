@@ -1,5 +1,7 @@
 import React from 'react'
 
+// TODO : May not need this component.
+
 const Counter = ({ itemId, item, itemQuantity }) => {
   return (
     // <div>Counter</div>
@@ -10,3 +12,4 @@ const Counter = ({ itemId, item, itemQuantity }) => {
 }
 
 export default Counter
+

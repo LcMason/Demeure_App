@@ -55,32 +55,7 @@ const usersReducer = (state=initialState, action) => {
           ...state,
           currentUser: {...state.currentUser, userItems: action.payload}
         }
-        // TODO 1: fix ADD_TO_CART . ' inCart' is undefined on the first click.
-        //how is cartItem from the controller accessbile in my usersReduer
-        // case "ADD_TO_CART":
-        //   const item = action.payload;
-        //   console.log(item, "item")
-        //   const inCart = state.currentUser?.userItems?.find(
-        //   (cartItem) => cartItem.id === item.id)
-        //   const updatedUserItems = inCart
-        //   ? state.currentUser.userItems.map((cartItem) =>
-        //   cartItem.id === item.id
-        //   // add variable declared on line 61 
-        //   ? { ...cartItem, quantity: cartItem.quantity + 1 }
-          
-        //   : cartItem
-        //   // add variable declared on line 70
-        //   )
-        //   // TODO : cartCount is not updating from /itemDetails route
-        //   : [...state.currentUser?.userItems ?? [], { ...item, quantity: 1 }]
-        //   console.log(inCart, "inCart variable")
-        //   const updatedCartCount = state.cartCount + 1; // Increment the cart count
-        //   return {
-        //     ...state,
-        //     currentUser: {...state.currentUser, userItems: updatedUserItems},
-        //     cartCount: updatedCartCount
-        // }
-
+       
        case "ADD_TO_CART": {
     console.log('ADD_TO_CART action triggered', action);
 
@@ -156,9 +131,8 @@ const usersReducer = (state=initialState, action) => {
         // TODO: Do i need to use let to define a variable that will change with the cartCount? Where will I define this? 
        case "REMOVE_FROM_CART": {
       const itemId = action.payload.id;
-       // the itemId console logged on 158 is undefined. figure out why. look at the action > items to see if the action is written correctly.
       let currentItems = state.currentUser?.userItems || [];
-      const existingItem = currentItems.find(userItem => userItem.id === itemId);
+      const existingItem = currentItems.find(currentItem => currentItem.id === itemId);
         // if the qunatity is greater than 1, we reduce the qunatity by 1. 
       if (existingItem.quantity === 1) { 
         currentItems = currentItems.filter(item => item.id !== itemId)
