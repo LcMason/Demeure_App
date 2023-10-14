@@ -2,6 +2,7 @@ const initialState = {
 users: [],
 currentUser: null,
 cartCount: 0,
+// cartCount: this.userItems.length,
 loggedIn: false,
 userItems: [], 
 showItem: null, 
@@ -87,9 +88,9 @@ const usersReducer = (state=initialState, action) => {
     }
     console.log('Updated user items:', updatedUserItems); // after item placed in cart
 
-    const updatedCartCount = (Number(state.cartCount) + 1);
+    const CartCountupdated = (Number(state.cartCount) + 1);
     // console.log('Updated cart count:', updatedCartCount);
-    console.log('Updated cart count:', typeof updatedCartCount);
+    // console.log('Updated cart count:', typeof updatedCartCount);
 
     return {
         ...state,
@@ -97,14 +98,14 @@ const usersReducer = (state=initialState, action) => {
             ...state.currentUser,
             userItems: updatedUserItems
         },
-        cartCount: updatedCartCount
+        // cartCount: updatedCartCount
     };
 }
 
         case "UPDATE_CART_COUNT":
           return {
             ...state,
-            cartCount: action.payload
+            cartCount: state.currentUser?.userItems?.length || 0
         }
 
         case "ADJUST_QTY":
@@ -139,14 +140,14 @@ const usersReducer = (state=initialState, action) => {
       } else {
         existingItem.quantity--
       }
-      const updatedCartCount = Math.max(0, (Number(state.cartCount) - 1));
+      // const updatedCartCount = Math.max(0, (Number(state.cartCount) - 1));
       return {
         ...state,
         currentUser: {
           ...state.currentUser,
           userItems: currentItems
         },
-        cartCount: updatedCartCount,
+        // cartCount: updatedCartCount,
       };
     }
 

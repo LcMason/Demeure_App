@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import dingyShoes from "../images/dingyShoes.jpg"
-import { useParams, Link } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
-import { removeFromCart, adjustQty } from "../actions/items" 
+import { removeFromCart, adjustQty, addToCart } from "../actions/items" 
 // import { Checkout } from 'react'
 
 // TODO: adjustQty may need to be used in this componenet to adjust once i hit the 'remove' button.
 // TODO: may need to write conditonal statement to decrement -1 on each click. Once item hits 0, remove div.
-const ItemCardCheckout = ({item, onIncrement, onDecrement}) => {
+const ItemCardCheckout = ({ item }) => {
   const { items, currentUser, cartCount } = useSelector(store => store.usersReducer)
   const dispatch = useDispatch();
-  const { id } = useParams()
-  const currentItem = items?.find((item) => item.id === parseInt(id))
-  console.log("current Item", currentItem)
+  // const currentItem = items?.find((item) => item.id === parseInt(id))
+  
  
-  const itemQ = currentItem && currentUser?.userItems?.find(item => item.id === currentItem.id)
-  const [qty, setQty] = useState(itemQ?.quantity || 0);
+  // const itemQ = currentItem && currentUser?.userItems?.find(item => item.id === currentItem.id)
+
+  const [qty, setQty] = useState(item.quantity || 0);
   const [cartTotal, setCartTotal] = useState(cartCount)
   // const [visible, setVisible] = useState(true);
 
@@ -48,25 +48,22 @@ const ItemCardCheckout = ({item, onIncrement, onDecrement}) => {
   //   }, [currentUser, currentItem, cartCount]);
 
 
-   const handleAdjustQuantity = (id, quantityAdjustment) => {
-    const updatedQty = parseInt(qty) + quantityAdjustment;
-
-    if (updatedQty < 1) {
+   const handleAdjustQuantity = () => {
+    if (item.quantity < 1) {
         // If the quantity becomes less than 1, remove the item from the cart
-        dispatch(removeFromCart(id));
+        // dispatch(removeFromCart(id));
     } else {
-        const updatedItem = { ...currentItem, quantity: updatedQty };
-        if (itemQ) {
-            dispatch(adjustQty(id, updatedQty));
-        // } else {
-        //     dispatch(addToCart(updatedItem));
+        const updatedItem = { ...item, quantity: item.quantity };
+        if (item) {
+            // dispatch(adjustQty(id, item.quantity));
+        } else {
+            dispatch(addToCart(updatedItem));
         }      
     }
     // Nicholas : .price is throwing a TypeError
-    const updatedCartTotal = cartTotal + quantityAdjustment * currentItem.price;
-    setCartTotal(updatedCartTotal);
+    // const updatedCartTotal = cartTotal + quantityAdjustment * item.price;
+    // setCartTotal(updatedCartTotal);
 }
-
 
   const removeItemFromCart = (id) => {
   if (id !== null && id !== undefined) {
@@ -76,29 +73,6 @@ const ItemCardCheckout = ({item, onIncrement, onDecrement}) => {
     // Optionally, you could handle the case where id is null or undefined here
   }
 };
-
-//  const removeItemFromCart = (id) => {
-//   if (action.type === "REMOVE_FROM_CART") {
-//     return { currentUser.
-
-//     }
-//     dispatch(removeFromCart(id));
-//   } else {
-//     console.error("Invalid id:", id);
-//     // Optionally, you could handle the case where id is null or undefined here
-//   }
-// };
-    
-// TODO : Build out a REMOVE_FROM_CART action and reducer
-
-
-  // const removeElement = (id) => {
-  //   // let newQuantity = 
-  //   dispatch(removeFromCart(id));
-  //   dispatch(adjustQty({id: item.id})) 
-  //   // dispatch(adjustQty({id: item.id, quantity: newQuantity})) 
-  // };
-
 
   return (
     // <div className="card mb-3">
@@ -137,13 +111,16 @@ const ItemCardCheckout = ({item, onIncrement, onDecrement}) => {
                         <div>
                         <button
                           className="btn btn-sm btn-primary ms-2"
-                          onClick={handleIncrement}
+                          // Nicholas : the increment/decrement button should adjust the qty and cartTotal's price
+                          // onClick={handleIncrement}
+                          onClick={handleAdjustQuantity}
                         >
                           +
                         </button>
                         <button
                           className="btn btn-sm btn-primary ms-2"
-                          onClick={handleDecrement}
+                          // onClick={handleDecrement}
+                          onClick={handleAdjustQuantity}
                         >
                           -
                         </button>

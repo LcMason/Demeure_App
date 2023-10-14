@@ -29,7 +29,7 @@ const ItemDetails = () => {
         }, 0);
         setCartTotal(updatedCartTotal || 0);
     }, [currentUser, currentItem, cartCount]);
-    // Nicholas : Why do we have currentUser in the dependencies array if we're only looking for teh currentItem & cartCount to change?
+    // Nicholas : Why do we have currentUser in the dependencies array if we're only looking for the currentItem & cartCount to change?
     // Nicholas : the user wont change if we are the logged in user. 
     
     console.log(cartTotal, "cartTotal");
