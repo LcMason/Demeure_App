@@ -32,20 +32,6 @@ const ItemCardCheckout = ({ item }) => {
     }
   };
 
-  // remove DOM Element when value is 0
-  // const removeItemFromCart = (id) => {
-  //   dispatch(removeFromCart(id))
-  // }
-
-  // Nicholas : Do i need this useEffect.
-  // useEffect(() => {
-  //       const itemQ = currentItem && currentUser?.userItems?.find((item) => item.id === currentItem.id);
-  //       setQty(itemQ?.quantity || 0);
-  //       const updatedCartTotal = currentUser?.userItems?.reduce((total, item) => {
-  //       return total + item.quantity * item.price;
-  //       }, 0);
-  //       setCartTotal(updatedCartTotal || 0);
-  //   }, [currentUser, currentItem, cartCount]);
 
 
    const handleAdjustQuantity = (op) => {
@@ -57,7 +43,7 @@ const ItemCardCheckout = ({ item }) => {
       } else {
         dispatch(adjustQty(item.id, item.quantity - 1 )); 
     }
-    // Nicholas : .price is throwing a TypeError
+   
     // const updatedCartTotal = cartTotal + quantityAdjustment * item.price;
     // setCartTotal(updatedCartTotal);
 }
