@@ -48,17 +48,14 @@ const ItemCardCheckout = ({ item }) => {
   //   }, [currentUser, currentItem, cartCount]);
 
 
-   const handleAdjustQuantity = () => {
-    if (item.quantity < 1) {
-        // If the quantity becomes less than 1, remove the item from the cart
-        // dispatch(removeFromCart(id));
-    } else {
-        const updatedItem = { ...item, quantity: item.quantity };
-        if (item) {
-            // dispatch(adjustQty(id, item.quantity));
-        } else {
-            dispatch(addToCart(updatedItem));
-        }      
+   const handleAdjustQuantity = (op) => {
+     if (op === "+") {
+       // If the quantity becomes less than 1, remove the item from the cart
+       dispatch(adjustQty(item.id, item.quantity + 1 ));      
+      } else if (item.quantity === 1){
+        dispatch(removeFromCart(item.id));
+      } else {
+        dispatch(adjustQty(item.id, item.quantity - 1 )); 
     }
     // Nicholas : .price is throwing a TypeError
     // const updatedCartTotal = cartTotal + quantityAdjustment * item.price;
@@ -98,7 +95,7 @@ const ItemCardCheckout = ({ item }) => {
                           <h5 className="fw-normal mb-0">{item.quantity}</h5>
                         </div>
                         <div style={{width: '80px'}}>
-                          <h5 className="mb-0">${item.price}</h5>
+                          <h5 className="mb-0">${item.price * item.quantity}</h5>
                         </div>
                         <div>
                           {/* <Checkout visible={visible} /> */}
@@ -113,14 +110,14 @@ const ItemCardCheckout = ({ item }) => {
                           className="btn btn-sm btn-primary ms-2"
                           // Nicholas : the increment/decrement button should adjust the qty and cartTotal's price
                           // onClick={handleIncrement}
-                          onClick={handleAdjustQuantity}
+                          onClick={() => handleAdjustQuantity("+")}
                         >
                           +
                         </button>
                         <button
                           className="btn btn-sm btn-primary ms-2"
                           // onClick={handleDecrement}
-                          onClick={handleAdjustQuantity}
+                          onClick={() => handleAdjustQuantity("-")}
                         >
                           -
                         </button>
