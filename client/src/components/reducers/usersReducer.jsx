@@ -66,7 +66,6 @@ const usersReducer = (state=initialState, action) => {
           if (existingItem) {
               updatedUserItems = currentItems.map(userItem => {
             if (userItem.id === item.id) {
-                console.log('Found item to update:', userItem);
                 return { ...userItem, quantity: userItem.quantity + 1 };
             }
             return userItem;
