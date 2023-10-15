@@ -43,9 +43,6 @@ const ItemCardCheckout = ({ item }) => {
       } else {
         dispatch(adjustQty(item.id, item.quantity - 1 )); 
     }
-   
-    // const updatedCartTotal = cartTotal + quantityAdjustment * item.price;
-    // setCartTotal(updatedCartTotal);
 }
 
   const removeItemFromCart = (id) => {
@@ -56,67 +53,53 @@ const ItemCardCheckout = ({ item }) => {
     // Optionally, you could handle the case where id is null or undefined here
   }
 };
-
   return (
-    // <div className="card mb-3">
     <div key={item.id} className="card mb-3">
-                  <div className="card-body">
-
-                    <div className="d-flex justify-content-between">
-                      <div className="d-flex flex-row align-items-center">
-                        <div>
-                          <img
-                            src={dingyShoes}
-                            className="img-fluid rounded-3" alt="dingy shoes" style={{width: '65px'}}/>
-                        </div>
-                        <div className="ms-3">
-                          {/* <h5>{item.title}</h5> */}
-                          <p className="small mb-0">{item.name}</p>
-                          <p className="small mb-0">{item.description}</p>
-                        </div>
-                      </div>
-                      <div className="d-flex flex-row align-items-center">
-                        <div style={{width: '50px'}}>
-                          {/* <h5 className="fw-normal mb-0">{item.quantity}</h5> */}
-                          <h5 className="fw-normal mb-0">{item.quantity}</h5>
-                        </div>
-                        <div style={{width: '80px'}}>
-                          <h5 className="mb-0">${item.price * item.quantity}</h5>
-                        </div>
-                        <div>
-                          {/* <Checkout visible={visible} /> */}
-                        <button onClick={() => {removeItemFromCart(item.id)}}>Remove</button>
-                        </div>
-                        <div>
-                          {/* <input min="0" type="number" defaultValue={qty} className="form-control" onChange={(e) => setQty(parseInt(e.target.value))} /> */}
-                          <input min="0" type="number" value={qty} className="form-control" onChange={(e) => setQty(parseInt(e.target.value))} />
-                        </div>
-                        <div>
-                        <button
-                          className="btn btn-sm btn-primary ms-2"
-                          // Nicholas : the increment/decrement button should adjust the qty and cartTotal's price
-                          // onClick={handleIncrement}
-                          onClick={() => handleAdjustQuantity("+")}
-                        >
-                          +
-                        </button>
-                        <button
-                          className="btn btn-sm btn-primary ms-2"
-                          // onClick={handleDecrement}
-                          onClick={() => handleAdjustQuantity("-")}
-                        >
-                          -
-                        </button>
-                      </div>
-                        {/* <div> stretch goal
-                        <button className="btn btn-sm btn-primary ms-2" onClick={handleDecrement}>-</button>
-                        <button className="btn btn-sm btn-primary ms-2"  onClick={handleIncrement}>+</button>
-                        </div> */}
-                        <Link to="#!" style={{color: '#cecece'}}><i className="fas fa-trash-alt"></i></Link>
-                      </div>
-                    </div>
+      <div className="card-body">
+        <div className="d-flex justify-content-between">
+          <div className="d-flex flex-row align-items-center">
+            <div>
+              <img
+                src={dingyShoes}
+                className="img-fluid rounded-3" alt="dingy shoes" style={{width: '65px'}}/>
+            </div>
+            <div className="ms-3">
+              <p className="small mb-0">{item.name}</p>
+              <p className="small mb-0">{item.description}</p>
                   </div>
-                </div>                
+          </div>
+          <div className="d-flex flex-row align-items-center">
+            <div style={{width: '50px'}}>
+              <h5 className="fw-normal mb-0">{item.quantity}</h5>
+            </div>
+            <div style={{width: '80px'}}>
+              <h5 className="mb-0">${item.price * item.quantity}</h5>
+            </div>
+            <div>
+            <button onClick={() => {removeItemFromCart(item.id)}}>Remove</button>
+            </div>
+            <div>
+              <input min="0" type="number" value={qty} className="form-control" onChange={(e) => setQty(parseInt(e.target.value))} />
+            </div>
+            <div>
+            <button
+            className="btn btn-sm btn-primary ms-2"
+              onClick={() => handleAdjustQuantity("+")}
+            >
+              +
+            </button>
+            <button
+              className="btn btn-sm btn-primary ms-2"
+              onClick={() => handleAdjustQuantity("-")}
+            >
+              -
+            </button>
+          </div>
+            <Link to="#!" style={{color: '#cecece'}}><i className="fas fa-trash-alt"></i></Link>
+          </div>
+        </div>
+      </div>
+    </div>                
   )
 }
 

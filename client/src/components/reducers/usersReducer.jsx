@@ -2,7 +2,6 @@ const initialState = {
 users: [],
 currentUser: null,
 cartCount: 0,
-// cartCount: this.userItems.length,
 loggedIn: false,
 userItems: [], 
 showItem: null, 
@@ -58,24 +57,14 @@ const usersReducer = (state=initialState, action) => {
         }
        
        case "ADD_TO_CART": {
-    console.log('ADD_TO_CART action triggered', action);
-
-    const item = action.payload;
-    console.log('Item from payload:', item);
-
-    const currentItems = state.currentUser?.userItems || [];
-    console.log('Current items:', currentItems);
-
-    const existingItem = currentItems.find(userItem => {
-        console.log('Checking cart item:', userItem);
+        const item = action.payload;
+        const currentItems = state.currentUser?.userItems || [];
+        const existingItem = currentItems.find(userItem => {
         return userItem.id === item.id;
     });
-    console.log('Existing item:', existingItem); // before an item is placed into the cart
-
-    let updatedUserItems;
-    if (existingItem) {
-        updatedUserItems = currentItems.map(userItem => {
-            console.log('Mapping cart item:', userItem);
+        let updatedUserItems;
+          if (existingItem) {
+              updatedUserItems = currentItems.map(userItem => {
             if (userItem.id === item.id) {
                 console.log('Found item to update:', userItem);
                 return { ...userItem, quantity: userItem.quantity + 1 };
@@ -83,14 +72,9 @@ const usersReducer = (state=initialState, action) => {
             return userItem;
         });
     } else {
-        console.log('Item not found in cart, adding new item');
         updatedUserItems = [...currentItems, { ...item, quantity: 1 }];
     }
-    console.log('Updated user items:', updatedUserItems); // after item placed in cart
-
     const CartCountupdated = (Number(state.cartCount) + 1);
-    // console.log('Updated cart count:', updatedCartCount);
-    // console.log('Updated cart count:', typeof updatedCartCount);
 
     return {
         ...state,
@@ -98,10 +82,8 @@ const usersReducer = (state=initialState, action) => {
             ...state.currentUser,
             userItems: updatedUserItems
         },
-        // cartCount: updatedCartCount
     };
 }
-
         case "UPDATE_CART_COUNT":
           return {
             ...state,
@@ -119,17 +101,8 @@ const usersReducer = (state=initialState, action) => {
                   : item
               )
             }
-        }                       
-        // case "REMOVE_FROM_CART":
-        //   return {
-        //       ...state,
-        //       userItems: state.userItems.filter(item => item.id !== action.payload)
-        // }
-        //update user cart data structure and one that updates my quantity.
+        }   
 
-        // TODO: instead of removing everything from the cart, remove item 1 at a time.
-        // TODO: itemId is undefined. 
-        // TODO: Do i need to use let to define a variable that will change with the cartCount? Where will I define this? 
        case "REMOVE_FROM_CART": {
       const itemId = action.payload.id;
       let currentItems = state.currentUser?.userItems || [];
@@ -140,17 +113,14 @@ const usersReducer = (state=initialState, action) => {
       } else {
         existingItem.quantity--
       }
-      // const updatedCartCount = Math.max(0, (Number(state.cartCount) - 1));
       return {
         ...state,
         currentUser: {
           ...state.currentUser,
           userItems: currentItems
         },
-        // cartCount: updatedCartCount,
       };
     }
-
         case "ADD_REVIEW":
           const updatedItem = {...state.showItem, reviews: [...state.reviews, action.payload] }
           return {
