@@ -8,7 +8,6 @@ import Errors from './components/errors/Errors';
 import Navbar from './components/navigation/Navbar'
 import { useSelector, useDispatch } from 'react-redux';
 import About from './components/About';
-// import { loadItems } from './components/actions/items';
 import { loadItems, updateCartCount } from './components/actions/items';
 import ItemList from './components/items/ItemList';
 // import { loadReviews } from './components/actions/reviews';

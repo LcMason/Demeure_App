@@ -4,7 +4,7 @@ import { setErrors, clearErrors } from "./errors";
 
 
 // TODO: finish building out loadReviews action file. Look at items action file for reference.
-
+// build out loadReviews : look at actions > items > loadItems 
 // export const loadReviews = () => {
 //     return dispatch => {
 //        fetch('/reviews')
