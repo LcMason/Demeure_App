@@ -17,22 +17,7 @@ const ItemCardCheckout = ({ item }) => {
 
   const [qty, setQty] = useState(item.quantity || 0);
   const [cartTotal, setCartTotal] = useState(cartCount)
-  // const [visible, setVisible] = useState(true);
-
-// stretch goals - increment and decrement cart totals from /checkout route.
-  const handleIncrement = () => {
-    setQty(qty + 1);
-  };
-
-  const handleDecrement = () => {
-    if (qty < 1){
-      dispatch(removeFromCart(item.id))
-    } else {
-      setQty(qty - 1);
-    }
-  };
-
-
+ 
 
    const handleAdjustQuantity = (op) => {
      if (op === "+") {
