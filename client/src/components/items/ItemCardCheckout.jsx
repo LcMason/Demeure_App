@@ -75,12 +75,12 @@ const ItemCardCheckout = ({ item }) => {
             <div style={{width: '80px'}}>
               <h5 className="mb-0">${item.price * item.quantity}</h5>
             </div>
-            <div>
+            {/* <div>
             <button onClick={() => {removeItemFromCart(item.id)}}>Remove</button>
-            </div>
-            <div>
+            </div> */}
+            {/* <div>
               <input min="0" type="number" value={qty} className="form-control" onChange={(e) => setQty(parseInt(e.target.value))} />
-            </div>
+            </div> */}
             <div>
             <button
             className="btn btn-sm btn-primary ms-2"
@@ -94,6 +94,9 @@ const ItemCardCheckout = ({ item }) => {
             >
               -
             </button>
+             <div>
+            <button onClick={() => {removeItemFromCart(item.id)}}>Remove</button>
+            </div>
           </div>
             <Link to="#!" style={{color: '#cecece'}}><i className="fas fa-trash-alt"></i></Link>
           </div>
