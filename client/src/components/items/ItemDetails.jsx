@@ -46,15 +46,16 @@ const ItemDetails = () => {
   setCartTotal(updatedCartTotal);
         navigate('/checkout')
     }
-      
-    const handleRemoveItem = () => {
-        if (qty > 0) {
-          const updatedQty = qty - 1;
-          dispatch(adjustQty(currentItem.id, updatedQty));
-        //   dispatch(removeFromCart(currentItem.id, updatedQty));
-        // the above dispatch may need to be in the /checkout component to remove item from shopping cart.
-        }
-    };
+      // TODO 1 : this function remove every item in the cart and rerenders the component.
+      // TDOD : This item should remove 
+    // const handleRemoveItem = () => {
+    //     if (qty > 0) {
+    //       const updatedQty = qty - 1;
+    //       dispatch(adjustQty(currentItem.id, updatedQty));
+    //     //   dispatch(removeFromCart(currentItem.id, updatedQty));
+    //     // the above dispatch may need to be in the /checkout component to remove item from shopping cart.
+    //     }
+    // };
       
     const submitReviewForm = (e) =>  {
         e.preventDefault();
@@ -101,9 +102,9 @@ return (
                             <button onClick={() => handleAddItem(currentItem.id)} className="btn btn-primary shadow-0 me-1" type="button">Add To Cart
                                 <i className="fas fa-shopping-cart ms-1"></i>
                             </button>
-                            <button onClick={() => handleRemoveItem(currentItem.id)} className="btn btn-primary shadow-0 me-1"><i className="bi-trash"></i>
+                            {/* <button onClick={() => handleRemoveItem(currentItem.id)} className="btn btn-primary shadow-0 me-1"><i className="bi-trash"></i>
                                 <i className="fas fa-shopping-cart ms-1"></i>
-                            </button>
+                            </button> */}
                         </form>                         
                     </div>                
                 </div>        
