@@ -13,8 +13,6 @@ const LoggedInLinks = () => {
     dispatch(logoutUser())
   }  
 
-  console.log("cart Count", cartCount)
-
 return (
   <div className="collapse navbar-collapse" id="navbarColor03">
     <ul className="navbar-nav me-auto">
@@ -32,7 +30,6 @@ return (
       </li>
         <Link className="nav-link me-3" to="/checkout">
         <i className="bi bi-cart"></i>           
-          {/* <span className="badge rounded-pill badge-notification bg-danger">{cartCount}</span> */}
           <span className="badge rounded-pill badge-notification bg-danger">{isNaN(cartCount) ? null : cartCount}</span>
         </Link>
     </ul>

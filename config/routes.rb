@@ -27,7 +27,8 @@ Rails.application.routes.draw do
     resources :reviews, only: [:show, :create, :destroy]
   end
 
-
+# TODO 1 : Review nested resources in routes.rb file. 
+# Goal : once itemDetail is clicked I want item/id to show the reviews for that particular item.
 
   # resources :user_items, only: [:index, :show, :create, :destroy, :update]
   resources :user_items, only: [:show, :index, :destroy]
