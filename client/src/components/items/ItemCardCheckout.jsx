@@ -8,7 +8,7 @@ import { removeFromCart, adjustQty, addToCart } from "../actions/items"
 // TODO: adjustQty may need to be used in this componenet to adjust once i hit the 'remove' button.
 // TODO: may need to write conditonal statement to decrement -1 on each click. Once item hits 0, remove div.
 const ItemCardCheckout = ({ item }) => {
-  const { items, currentUser, cartCount } = useSelector(store => store.usersReducer)
+  const { currentUser, cartCount } = useSelector(store => store.usersReducer)
   const dispatch = useDispatch();
   // const currentItem = items?.find((item) => item.id === parseInt(id))
   
@@ -44,7 +44,7 @@ const ItemCardCheckout = ({ item }) => {
         dispatch(adjustQty(item.id, item.quantity - 1 )); 
     }
 }
-
+// TODO 1: this function should remove the entire item and it's div from the cart. Not decrement item by 1
   const removeItemFromCart = (id) => {
   if (id !== null && id !== undefined) {
     dispatch(removeFromCart(id));
