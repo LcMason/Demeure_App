@@ -48,19 +48,13 @@ export const addToCart = (item) => {
   };
 };
 
-
 export const removeFromCart = (id) => {
     return { type: "REMOVE_FROM_CART", payload: {id}}
 }
 
-// export const deleteCartItem = (itemId) => {
-//     return { type: "DELETE_CART_ITEM", payload: {itemId}}
-// }
-
 export const deleteEntireCart = (id) => {
   return { type: "DELETE_ENTIRE_CART", payload: {id} };
 };
-
 
 export const deleteSingleItem = (itemId) => {
   return {
@@ -69,54 +63,14 @@ export const deleteSingleItem = (itemId) => {
   };
 };
 
-
 export const adjustQty = (id, qty) => {
   return { type: "ADJUST_QTY", payload: { id, quantity: qty} }
 }
-// NewCode :
-// export const updateCart = (updatedCartItems) => {
-//   return { type: "UPDATE_USER_ITEMS", payload: updatedCartItems }
-// }
+
 export const updateCartCount = (total) => {
   return { type: "UPDATE_CART_COUNT", payload: total }
 }
 
-
-// Check syntax of deleteItem. Missing data in the dispatch?
-// export const deleteItem = (id) => {
-//   return dispatch => {
-//     fetch(`/lists/${ id }`, {
-//       method: "DELETE",
-//       headers: {
-//         "Accept": "application/json"
-//       }
-//     })
-//       .then(resp => resp.json())
-//       .then(data => {
-//         // update reducer state;
-//         // how do we update reducer state?
-//         dispatch({
-//           type: "DELETE_ITEM",
-//           payload: id
-//         });
-//       })
-//   }
-// }
-
-// export const showItem = (id) => {
-//   return dispatch => {
-//     fetch(`/items/${id}`)
-//       .then(resp => resp.json())
-//       .then(data => {
-//         const action = {
-//           type: "SHOW_ITEM",
-//           payload: data
-//         };
-//         dispatch(action);
-//         // navigate(`/items/${id}`)
-//       });
-//   };
-// };
 export const showItem = (id) => {
   return dispatch => {
     fetch(`/items/${id}`)
@@ -127,7 +81,7 @@ export const showItem = (id) => {
           payload: data
         };
         dispatch(action);
-        // navigate(`/items/${id}`)
+
       });
   };
 };

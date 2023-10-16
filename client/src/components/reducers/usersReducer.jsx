@@ -120,21 +120,7 @@ const usersReducer = (state=initialState, action) => {
         },
       };
     }
-
-//     case "DELETE_THE_CART": {
-//       const itemId = action.payload.id;
-//       const currentItems = state.currentUser?.userItems || [];
-//       const updatedItems = currentItems.filter(item => item.id !== itemId);
-
-//   return {
-//     ...state,
-//     currentUser: {
-//       ...state.currentUser,
-//       userItems: updatedItems
-//     },
-//   };
-// }
-          // TODO : this case works. It will remove all items from my cart. 
+     
           case "DELETE_ENTIRE_CART": {
             return {
               ...state,
