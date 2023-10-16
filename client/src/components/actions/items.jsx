@@ -53,6 +53,17 @@ export const removeFromCart = (id) => {
     return { type: "REMOVE_FROM_CART", payload: {id}}
 }
 
+// export const deleteCartItem = (itemId) => {
+//     return { type: "DELETE_CART_ITEM", payload: {itemId}}
+// }
+
+export const deleteEntireCart = (id) => {
+  return { type: "DELETE_ENTIRE_CART", payload: {id} };
+};
+
+
+
+
 export const adjustQty = (id, qty) => {
   return { type: "ADJUST_QTY", payload: { id, quantity: qty} }
 }

@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react'
 import dingyShoes from "../images/dingyShoes.jpg"
 import { Link } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
-import { removeFromCart, adjustQty, addToCart } from "../actions/items" 
+import { removeFromCart, adjustQty, deleteEntireCart, addToCart } from "../actions/items" 
 // import { Checkout } from 'react'
 
 // TODO: adjustQty may need to be used in this componenet to adjust once i hit the 'remove' button.
 // TODO: may need to write conditonal statement to decrement -1 on each click. Once item hits 0, remove div.
 const ItemCardCheckout = ({ item }) => {
-  const { currentUser, cartCount } = useSelector(store => store.usersReducer)
+  const { currentUser, userItems, cartCount } = useSelector(store => store.usersReducer)
   const dispatch = useDispatch();
   // const currentItem = items?.find((item) => item.id === parseInt(id))
   
@@ -30,14 +30,37 @@ const ItemCardCheckout = ({ item }) => {
     }
 }
 // TODO 1: this function should remove the entire item and it's div from the cart. Not decrement item by 1
-  const removeItemFromCart = (id) => {
-  if (id !== null && id !== undefined) {
-    dispatch(removeFromCart(id));
-  } else {
-    console.error("Invalid id:", id);
-    // Optionally, you could handle the case where id is null or undefined here
+//   const removeItemFromCart = (id) => {
+//   if (id !== null && id !== undefined) {
+//     dispatch(removeFromCart(id));
+//   } else {
+//     console.error("Invalid id:", id);
+//     // Optionally, you could handle the case where id is null or undefined here
+//   }
+// };
+
+
+// TODO : work on editing this function to allow the remove button to remove the entire item
+// const deleteCartItem = (id) => {
+//    const currentItems = currentUser?.userItems || [];
+//   const existingItem = currentItems.find(currentItem => currentItem.id === item.id)
+//   if (existingItem) {
+//     dispatch(deleteCartItem(id));
+//   } else {
+//     console.error("Invalid id:", id);
+//   }
+// }
+
+// TODO : this will delete my entire cart. Add a button to the page to remove all items from cart
+  const handleDeleteEntireCart = () => {
+    console.log(item.id)
+    dispatch(deleteEntireCart(item.id));
   }
-};
+
+    
+
+
+
   return (
     <div key={item.id} className="card mb-3">
       <div className="card-body">
@@ -80,7 +103,7 @@ const ItemCardCheckout = ({ item }) => {
               -
             </button>
              <div>
-            <button onClick={() => {removeItemFromCart(item.id)}}>Remove</button>
+            <button onClick={() => {handleDeleteEntireCart()}}>Remove</button>
             </div>
           </div>
             <Link to="#!" style={{color: '#cecece'}}><i className="fas fa-trash-alt"></i></Link>

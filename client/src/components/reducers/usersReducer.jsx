@@ -116,10 +116,37 @@ const usersReducer = (state=initialState, action) => {
         ...state,
         currentUser: {
           ...state.currentUser,
-          userItems: currentItems
+          items: currentItems
         },
       };
     }
+
+//     case "DELETE_THE_CART": {
+//       const itemId = action.payload.id;
+//       const currentItems = state.currentUser?.userItems || [];
+//       const updatedItems = currentItems.filter(item => item.id !== itemId);
+
+//   return {
+//     ...state,
+//     currentUser: {
+//       ...state.currentUser,
+//       userItems: updatedItems
+//     },
+//   };
+// }
+          // TODO : this case works. It will remove all items from my cart. 
+          case "DELETE_ENTIRE_CART": {
+            return {
+              ...state,
+              currentUser: {
+                ...state.currentUser,
+                userItems: []  // userItems: [] Clear the cart by setting items to an empty array
+              }
+            };
+          }
+
+
+
         case "ADD_REVIEW":
           const updatedItem = {...state.showItem, reviews: [...state.reviews, action.payload] }
           return {

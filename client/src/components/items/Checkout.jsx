@@ -43,6 +43,9 @@ return (
                       <p className="mb-1">Shopping cart</p>
                       <p className="mb-0">You have {cartCount} items in your cart</p>
                     </div> 
+                    <button onClick={() => handleRemoveItem(currentItem.id)} className="btn btn-primary shadow-0 me-1"><i className="bi-trash"></i>
+                                <i className="fas fa-shopping-cart ms-1"></i>
+                            </button> 
                   </div>
                     {/* {currentUser?.userItems.length >= 1 ? (
                       currentUser?.userItems.map((item) => (
