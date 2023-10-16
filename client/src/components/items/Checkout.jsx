@@ -1,12 +1,15 @@
 import React, {useState, useEffect} from "react"
 import { Link } from 'react-router-dom'
 import ItemCardCheckout from "./ItemCardCheckout"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+import { deleteEntireCart } from "../actions/items"
 
 const Checkout = () => {
   // TODO : should i add item to line 8 to reflect the items array
-  const { currentUser, cartCount, removeFromCart } = useSelector(store => store.usersReducer)
+  const {  currentUser, cartCount, removeFromCart } = useSelector(store => store.usersReducer)
   const [totalPrice, setTotalPrice] = useState(0)  
+  const dispatch = useDispatch()
+
   
   
   useEffect(() => {
@@ -19,11 +22,13 @@ const Checkout = () => {
     }
     setTotalPrice(price);
   }, [currentUser]);
-
-
-
-  const handleClick = () => {
-
+  
+  
+  
+  const handleDeleteEntireCart = () => {
+   const item = currentUser?.userItems
+    console.log(item.id)
+    dispatch(deleteEntireCart(item.id));
   }
 
 return (
@@ -43,7 +48,7 @@ return (
                       <p className="mb-1">Shopping cart</p>
                       <p className="mb-0">You have {cartCount} items in your cart</p>
                     </div> 
-                    <button onClick={() => handleRemoveItem(currentItem.id)} className="btn btn-primary shadow-0 me-1"><i className="bi-trash"></i>
+                    <button onClick={() => handleDeleteEntireCart()} className="btn btn-primary shadow-0 me-1"><i className="bi-trash"></i>
                                 <i className="fas fa-shopping-cart ms-1"></i>
                             </button> 
                   </div>
@@ -53,7 +58,7 @@ return (
                         ))
                       ) : null} */}
                     {currentUser?.userItems && currentUser?.userItems.map((item) => (
-            item.quantity > 0 && <ItemCardCheckout key={item.id} item={item}  /> 
+            item.quantity > 0 && <ItemCardCheckout key={item.id} item={item} /> 
         ))
     }
                        
