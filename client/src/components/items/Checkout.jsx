@@ -52,11 +52,6 @@ return (
                                 <i className="fas fa-shopping-cart ms-1"></i>
                             </button> 
                   </div>
-                    {/* {currentUser?.userItems.length >= 1 ? (
-                      currentUser?.userItems.map((item) => (
-                        <ItemCardCheckout key={item.id} item={item} />
-                        ))
-                      ) : null} */}
                     {currentUser?.userItems && currentUser?.userItems.map((item) => (
             item.quantity > 0 && <ItemCardCheckout key={item.id} item={item} /> 
         ))
@@ -104,7 +99,7 @@ return (
                             <div className="form-outline form-white">
                               <input type="password" id="typePassword" className="form-control form-control-lg"
                                 placeholder="&#9679;&#9679;&#9679;" size="1" minLength="3" maxLength="3" />
-                              <label className="form-label" htmlFor="typePassword">Cvv</label>
+                              <label className="form-label" htmlFor="typePassword">cvv</label>
                             </div>
                           </div>
                         </div>
