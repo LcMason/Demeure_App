@@ -62,6 +62,12 @@ export const deleteEntireCart = (id) => {
 };
 
 
+export const deleteSingleItem = (itemId) => {
+  return {
+    type: "DELETE_SINGLE_ITEM",
+    payload: { itemId }
+  };
+};
 
 
 export const adjustQty = (id, qty) => {

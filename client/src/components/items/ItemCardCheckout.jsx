@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import dingyShoes from "../images/dingyShoes.jpg"
 import { Link } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
-import { removeFromCart, adjustQty, deleteEntireCart, addToCart } from "../actions/items" 
+import { removeFromCart, adjustQty, deleteSingleItem, deleteEntireCart, addToCart } from "../actions/items" 
 // import { Checkout } from 'react'
 
 // TODO: adjustQty may need to be used in this componenet to adjust once i hit the 'remove' button.
@@ -51,12 +51,16 @@ const ItemCardCheckout = ({ item }) => {
 //   }
 // }
 
-// TODO : this will delete my entire cart. Add a button to the page to remove all items from cart
-  const handleDeleteEntireCart = () => {
-    console.log(item.id)
-    dispatch(deleteEntireCart(item.id));
-  }
 
+  // const handleDeleteEntireCart = () => {
+  //   console.log(item.id)
+  //   dispatch(deleteEntireCart(item.id));
+  // }
+
+
+  const handleDeleteItem = (itemId) => {
+    dispatch(deleteSingleItem(itemId));
+  }
     
 
 
@@ -103,7 +107,7 @@ const ItemCardCheckout = ({ item }) => {
               -
             </button>
              <div>
-            <button onClick={() => {handleDeleteEntireCart()}}>Remove</button>
+            <button onClick={() => {handleDeleteItem(item.id)}}>Remove</button>
             </div>
           </div>
             <Link to="#!" style={{color: '#cecece'}}><i className="fas fa-trash-alt"></i></Link>

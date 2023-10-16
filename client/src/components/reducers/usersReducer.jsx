@@ -145,8 +145,19 @@ const usersReducer = (state=initialState, action) => {
             };
           }
 
+          case "DELETE_SINGLE_ITEM": {
+            const itemId = action.payload.itemId;
+            const updatedUserItems = state.currentUser.userItems.filter(item => item.id !== itemId);
+            return {
+              ...state,
+              currentUser: {
+                ...state.currentUser,
+          userItems: updatedUserItems
+        }
+      };
+    }
 
-
+            
         case "ADD_REVIEW":
           const updatedItem = {...state.showItem, reviews: [...state.reviews, action.payload] }
           return {
