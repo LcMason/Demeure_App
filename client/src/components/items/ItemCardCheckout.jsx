@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import dingyShoes from "../images/dingyShoes.jpg"
 import { Link } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
-import { removeFromCart, adjustQty, deleteSingleItem, deleteEntireCart, addToCart } from "../actions/items" 
+import { removeFromCart, adjustQty, deleteSingleItem } from "../actions/items" 
 
 const ItemCardCheckout = ({ item }) => {
   const { currentUser, userItems, cartCount } = useSelector(store => store.usersReducer)
@@ -13,7 +13,6 @@ const ItemCardCheckout = ({ item }) => {
 
    const handleAdjustQuantity = (op) => {
      if (op === "+") {
-       // If the quantity becomes less than 1, remove the item from the cart
        dispatch(adjustQty(item.id, item.quantity + 1 ));      
       } else if (item.quantity === 1){
         dispatch(removeFromCart(item.id));
