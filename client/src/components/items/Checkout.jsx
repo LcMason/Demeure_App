@@ -6,7 +6,7 @@ import { deleteEntireCart } from "../actions/items"
 
 const Checkout = () => {
   // TODO : should i add item to line 8 to reflect the items array
-  const {  currentUser, cartCount, removeFromCart } = useSelector(store => store.usersReducer)
+  const {  currentUser, cartCount } = useSelector(store => store.usersReducer)
   const [totalPrice, setTotalPrice] = useState(0)  
   const dispatch = useDispatch()
 
