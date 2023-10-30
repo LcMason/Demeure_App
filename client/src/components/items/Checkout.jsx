@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react"
 import { Link, useNavigate } from 'react-router-dom'
 import ItemCardCheckout from "./ItemCardCheckout"
+// import CheckoutForm from "./CheckoutForm"
 import { useSelector, useDispatch } from "react-redux"
 import { deleteEntireCart } from "../actions/items"
+// import { Elements } from '@stripe/react-stripe-js';
 // import { loadStripe } from '@stripe/stripe-js';
+// import { useLocation } from 'react-router-dom';
 
 
 // const stripePromise = loadStripe('pk_test_51IlDPTH1TNv3FkZtTPZLrDSIb5mOalPb2XtVEbHir9aSISNNMCGYIaN39EffZ82UTiXDgdAoPSknmuxT3cYQmNYX00mcTFWniS');
@@ -15,6 +18,7 @@ const Checkout = () => {
   const [secret, setSecret] = useState("")
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  // const location = useLocation()
   
 
   // const options = {
@@ -22,8 +26,12 @@ const Checkout = () => {
   //   clientSecret: secret,
   // };
 
+  // const options = {
+  //   // passing the client secret obtained from the server
+  //   clientSecret: location.state.secret,
+  // };
 
-
+// Nicholas : Where does .quantity come from? We do not have a qunatity attribute on the backend. How do we access it in the frontend?
   useEffect(() => {
     let price = 0;
     if (currentUser && currentUser.userItems) {
@@ -32,8 +40,11 @@ const Checkout = () => {
         price += quantity * item.price;
       });
     }
+    // Why is setTotalPrice updating price and not totalPrice?
     setTotalPrice(price);
   }, [currentUser]);
+  // Nicholas : Why is currentUser in our dependency array? Every time currentUser changes this will run? Isn't the same user logged in?
+  // Nicholas : Shouldn't the variabe we are looking to change for a side effect currentUser.userItems? The item will change not the user
 
   useEffect(() => {
     return () => {
@@ -55,6 +66,7 @@ const Checkout = () => {
   
 const handlePay = () => {
   navigate("/pay", {state: {totalPrice, secret}})
+  // Nicholas : The state value of secret is an empty string so what is the value of the 2nd argument on ln 67?
 }
 
 

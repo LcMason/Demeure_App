@@ -3,6 +3,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import CheckoutForm from "./CheckoutForm"
 import { loadStripe } from '@stripe/stripe-js';
 import { useLocation } from 'react-router-dom';
+// Nicholas : what is the useLocation hook. How is it used on ln 21
 
 //create a route for /payment. 
 //payment.jsx needs total price
@@ -20,27 +21,29 @@ function Payment() {
         clientSecret: location.state.secret,
     };
 
-    // useEffect(() => {
-    //     return () => {
-    //         fetch('/client_secret', {
-    //             method: "POST",
-    //             "Accept": "application/json",
-    //             "Content-Type": "application/json",
-    //             body: JSON.stringify({
-    //                 amount: location.state.totalPrice
-    //             })
-    //         })
-    //             .then(resp => resp.json())
-    //             .then(data => {
-    //                 setSecret(data.client_secret)
-    //             })
+    useEffect(() => {
+        return () => {
+            fetch('/client_secret', {
+                method: "POST",
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                body: JSON.stringify({
+                    amount: location.state.totalPrice
+                })
+            })
+                .then(resp => resp.json())
+                .then(data => {
+                    setSecret(data.client_secret)
+                })
 
-    //     }
-    // }, [location.state.totalPrice])
+        }
+        //Nicholas : do we need the state value for totalPrice? We did not update totalPrice in checkout. We updated 'price'
+    }, [location.state.totalPrice])
   return (
       <div>
         {/*  style Div and write a better title to process payments  */}
-        <h1>Payment Page</h1>
+        <h1>Demeure</h1>
+        {/* Nicholas : explain options  */}
         {options.clientSecret && (
             <Elements stripe={stripePromise} options={options}>
                 <CheckoutForm />
