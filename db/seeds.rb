@@ -47,3 +47,8 @@ review12 = Review.create(title: "Arguably best year in basketball!", review: "Gr
 review13 = Review.create(title: "great for workouts", review: "This shirt feels great during workouts. Washes great. If you want more flexibility and movmement, you might want to go up a size.", user_id: user1.id , item_id: item13.id )
 review14 = Review.create(title: "liked it", review: "Good shirt for the price.", user_id: user1.id , item_id: item14.id )
 review15 = Review.create(title: "Dynamic Duo", review: "My nephew loves this shirt. Tatum and Brown his two fav players.", user_id: user1.id , item_id: item15.id )
+
+
+
+
+

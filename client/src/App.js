@@ -13,6 +13,7 @@ import ItemList from './components/items/ItemList';
 // import { loadReviews } from './components/actions/reviews';
 import { loadCurrentUser } from './components/actions/users';
 import ItemDetails from './components/items/ItemDetails';
+import Payment from './components/items/Payment';
 
 function App() {
   const { currentUser, cartCount } = useSelector((store) => store.usersReducer)
@@ -48,6 +49,7 @@ function App() {
                <Route path="/items" element={<ItemList /*loading={ loading }*/ /> } />  
                <Route path="/about" element={<About /> } /> 
                <Route path="/checkout" element={<Checkout cartCount={cartCount} /> } /> 
+               <Route path="/pay" element={<Payment /> } /> 
                <Route path="/items/:id" element={<ItemDetails cartCount={cartCount} /> } /> 
 
 

@@ -1,24 +1,26 @@
 import React, { useState, useEffect } from "react"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import ItemCardCheckout from "./ItemCardCheckout"
 import { useSelector, useDispatch } from "react-redux"
 import { deleteEntireCart } from "../actions/items"
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
-import CheckoutForm from "./CheckoutForm"
+// import { loadStripe } from '@stripe/stripe-js';
 
-const stripePromise = loadStripe('pk_live_51IlDPTH1TNv3FkZtyREfKk280GpdIl0DS4uamEkj5Mf1JYBDoxvtGXEVotZMCW8Ya6PwyOwUkT74upOagaJS59Xs00PGJHLeLv');
+
+// const stripePromise = loadStripe('pk_test_51IlDPTH1TNv3FkZtTPZLrDSIb5mOalPb2XtVEbHir9aSISNNMCGYIaN39EffZ82UTiXDgdAoPSknmuxT3cYQmNYX00mcTFWniS');
 
 const Checkout = () => {
   // TODO : should i add item to line 8 to reflect the items array
   const { currentUser, cartCount } = useSelector(store => store.usersReducer)
   const [totalPrice, setTotalPrice] = useState(0)
+  const [secret, setSecret] = useState("")
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+  
 
-  const options = {
-    // passing the client secret obtained from the server
-    clientSecret: 'pi_1Gt0F12eZvKYlo2ComYIk6ev_secret_MB9F0YEDd2RcdFBv6Qej1sOv7',
-  };
+  // const options = {
+  //   // passing the client secret obtained from the server
+  //   clientSecret: secret,
+  // };
 
 
 
@@ -33,6 +35,27 @@ const Checkout = () => {
     setTotalPrice(price);
   }, [currentUser]);
 
+  useEffect(() => {
+    return () => {
+      fetch('/client_secret', {
+        method: "POST",
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        body: JSON.stringify({
+          amount: 2000
+        })
+      })
+        .then(resp => resp.json())
+        .then(data => {
+          setSecret(data.client_secret)
+        })
+      
+    }
+  }, [totalPrice])
+  
+const handlePay = () => {
+  navigate("/pay", {state: {totalPrice, secret}})
+}
 
 
   const handleDeleteEntireCart = () => {
@@ -68,11 +91,7 @@ const Checkout = () => {
                     }
 
                   </div>
-                  <div>
-                    <Elements stripe={stripePromise} options={options}>
-                      <CheckoutForm />
-                    </Elements>
-                  </div>
+                 
                   {/* <div className="col-lg-5">
                     <div className="card bg-primary text-white rounded-3">
                       <div className="card-body">
@@ -140,6 +159,26 @@ const Checkout = () => {
                       </div>
                     </div>
                   </div> */}
+                  <hr className="my-4" />
+                  <div className="d-flex justify-content-between">
+                    <p className="mb-2">Subtotal</p>
+                    <p className="mb-2">${totalPrice}</p>
+                  </div>
+                  <div className="d-flex justify-content-between">
+                    <p className="mb-2">Free Shipping</p>
+                    <p className="mb-2">$00.00</p>
+                  </div>
+                  <div className="d-flex justify-content-between mb-4">
+
+                    <p className="mb-2">Total Price</p>
+                    <p className="mb-2">${totalPrice}</p>
+                  </div>
+                  <button type="button" className="btn btn-info btn-block btn-lg">
+                    <div className="d-flex justify-content-between">
+                      <span>${totalPrice}</span>
+                      <span onClick={handlePay}>Checkout {" "}<i className="fas fa-long-arrow-alt-right ms-2"></i></span>
+                    </div>
+                  </button>
                 </div>
               </div>
             </div>

@@ -11,6 +11,12 @@ Rails.application.routes.draw do
 
   # get "/items/:items_id/reviews", to: "reviews#index"
   get "items/:items_id/reviews/:id", to: "reviews#show"
+  post "/client_secret", to: "client_secret#create"
+
+
+ 
+
+
 
   # resources :users, only: :index do
   #   resources :user_items
