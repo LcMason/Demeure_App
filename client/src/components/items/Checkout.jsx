@@ -66,7 +66,8 @@ const Checkout = () => {
   
 const handlePay = () => {
   navigate("/pay", {state: {totalPrice, secret}})
-  // Nicholas : The state value of secret is an empty string so what is the value of the 2nd argument on ln 67?
+  // Nicholas : The state value of secret is an empty string so what is the value of the 2nd argument on ln 68?
+  // Nicholas : How can I pass order summary to payment? See Aime payment page
 }
 
 
