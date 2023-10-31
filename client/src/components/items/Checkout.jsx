@@ -42,27 +42,42 @@ const Checkout = () => {
     }
     // Why is setTotalPrice updating price and not totalPrice?
     setTotalPrice(price);
+    // TODO : price is a variable updated by 37-41. 
   }, [currentUser]);
-  // Nicholas : Why is currentUser in our dependency array? Every time currentUser changes this will run? Isn't the same user logged in?
-  // Nicholas : Shouldn't the variabe we are looking to change for a side effect currentUser.userItems? The item will change not the user
 
   useEffect(() => {
-    return () => {
-      fetch('/client_secret', {
-        method: "POST",
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    fetch('/client_secret', {
+      signal: signal,
+      method: "POST",
+      headers: {
         "Accept": "application/json",
-        "Content-Type": "application/json",
-        body: JSON.stringify({
-          amount: 2000
-        })
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        amount: 2000
       })
-        .then(resp => resp.json())
-        .then(data => {
-          setSecret(data.client_secret)
-        })
-      
-    }
-  }, [totalPrice])
+    })
+      .then(resp => resp.json())
+      .then(data => {
+        setSecret(data.client_secret);
+      })
+      .catch(err => {
+        if (err.name === 'AbortError') {
+          console.log('successfully aborted');
+        } else {
+          console.log(err) 
+          // tell the user what happens.. protect backend data.
+        }
+      });
+    return () => {
+      controller.abort();
+    };
+  }, [totalPrice]);
+  // TODO : totalPrice is state varaible with the updated price.
+
   
 const handlePay = () => {
   navigate("/pay", {state: {totalPrice, secret}})

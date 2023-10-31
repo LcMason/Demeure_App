@@ -6,8 +6,6 @@ import { useLocation } from 'react-router-dom';
 // import BreadCrumbs from '../BreadCrumbs';
 // Nicholas : what is the useLocation hook. How is it used on ln 21
 
-//create a route for /payment. 
-//payment.jsx needs total price
 
 const stripePromise = loadStripe('pk_test_51IlDPTH1TNv3FkZtTPZLrDSIb5mOalPb2XtVEbHir9aSISNNMCGYIaN39EffZ82UTiXDgdAoPSknmuxT3cYQmNYX00mcTFWniS');
 
@@ -21,25 +19,6 @@ function Payment() {
         // passing the client secret obtained from the server
         clientSecret: location.state.secret,
     };
-
-    // useEffect(() => {
-    //     return () => {
-    //         fetch('/client_secret', {
-    //             method: "POST",
-    //             "Accept": "application/json",
-    //             "Content-Type": "application/json",
-    //             body: JSON.stringify({
-    //                 amount: location.state.totalPrice
-    //             })
-    //         })
-    //             .then(resp => resp.json())
-    //             .then(data => {
-    //                 setSecret(data.client_secret)
-    //             })
-
-    //     }
-    //     //Nicholas : do we need the state value for totalPrice? We did not update totalPrice in checkout. We updated 'price'
-    // }, [location.state.totalPrice])
 
     useEffect(() => {
         const controller = new AbortController();
@@ -62,7 +41,8 @@ function Payment() {
                 if (err.name === 'AbortError') {
                     console.log('successfully aborted');
                 } else {
-                    // handle error
+                    console.log(err)
+                    // TODO : when the backend sends us an error message, we handle it here to show the user.
                 }
             });
 
