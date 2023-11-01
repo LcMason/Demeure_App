@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import shoe from '../images/shoe.jpg'
 import { showItem, addToCart } from '../actions/items'
 import { useNavigate } from 'react-router-dom'
+import BreadCrumbs from '../BreadCrumbs'
 
 
 
@@ -14,7 +15,7 @@ const ItemList = () => {
 
   const handleClick = (id) => {
     dispatch(showItem(id))
-    navigate(`/items/${id}`)
+    navigate(`/products/${id}`)
   }
 
   const handleAddItem = (item) => {
@@ -22,6 +23,8 @@ const ItemList = () => {
 }
 
   return (
+    <>
+    <BreadCrumbs />
     <div>      
       <section>
       <div className="container my-5">
@@ -47,7 +50,8 @@ const ItemList = () => {
           </div>
         </div>
       </section>
-    </div>   
+    </div>  
+    </> 
   )
 }
 

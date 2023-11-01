@@ -4,6 +4,7 @@ import ItemCardCheckout from "./ItemCardCheckout"
 // import CheckoutForm from "./CheckoutForm"
 import { useSelector, useDispatch } from "react-redux"
 import { deleteEntireCart } from "../actions/items"
+import BreadCrumbs from "../BreadCrumbs"
 // import { Elements } from '@stripe/react-stripe-js';
 // import { loadStripe } from '@stripe/stripe-js';
 // import { useLocation } from 'react-router-dom';
@@ -42,7 +43,7 @@ const Checkout = () => {
     }
     // Why is setTotalPrice updating price and not totalPrice?
     setTotalPrice(price);
-    // TODO : price is a variable updated by 37-41. 
+    // REVIEW : price is a variable updated by 37-41. 
   }, [currentUser]);
 
   useEffect(() => {
@@ -76,7 +77,7 @@ const Checkout = () => {
       controller.abort();
     };
   }, [totalPrice]);
-  // TODO : totalPrice is state varaible with the updated price.
+  // REVIEW : totalPrice is state varaible with the updated price.
 
   
 const handlePay = () => {
@@ -93,6 +94,8 @@ const handlePay = () => {
   }
 
   return (
+    <>
+    <BreadCrumbs />
     <section className="h-100 h-custom" style={{ 'backgroundColor': '#eee' }}>
       <div className="container py-5 h-100">
         <div className="row d-flex justify-content-center align-items-center h-100">
@@ -101,7 +104,7 @@ const handlePay = () => {
               <div className="card-body p-4">
                 <div className="row">
                   <div className="col-lg-7">
-                    <h5 className="mb-3"><Link to="/items" className="text-body"><i
+                    <h5 className="mb-3"><Link to="/products" className="text-body"><i
                       className="fas fa-long-arrow-alt-left me-2"></i>Continue shopping</Link></h5>
                     <hr />
                     <div className="d-flex justify-content-between align-items-center mb-4">
@@ -214,6 +217,7 @@ const handlePay = () => {
         </div>
       </div>
     </section>
+    </>
   )
 }
 export default Checkout

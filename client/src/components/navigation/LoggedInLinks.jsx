@@ -3,7 +3,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { logoutUser } from '../actions/users'
-import BreadCrumbs from '../BreadCrumbs'
+
 
 const LoggedInLinks = () => {
   const { currentUser, cartCount } = useSelector(store => store.usersReducer)
@@ -21,7 +21,7 @@ return (
         <Link className="nav-link" to="/about">About</Link>
       </li>
       <li className="nav-item">
-        <Link className="nav-link" to="/items">Shop</Link>
+        <Link className="nav-link" to="/products">Shop</Link>
       </li>
       {/* <li className="nav-item">
         <Link className="nav-link" to="reviews">Reviews</Link>
@@ -37,9 +37,7 @@ return (
     <span className="text-light">Welcome {currentUser.username}</span>
  
     {/* Nicholas : I want my breadcrumbs to be in a div on the page, under the Welcome (currentUsername.username) but keep getting syntax errors */}
-    <div>
-      <BreadCrumbs />
-    </div>
+    
   </div>
   )
 }

@@ -38,7 +38,7 @@ function App() {
   
 
   return (
-    <div className="container-flex bg-success">
+    <div className="container-flex bg-success min-vh-100">
        <Navbar cartCount={cartCount} />
           <Errors />
      
@@ -46,11 +46,13 @@ function App() {
                <Route path="/" element={<Home />} /> 
                <Route path="/login" element={<Login loading={ loading } />} /> 
                <Route path="/signup" element={<Signup loading={ loading } /> } />  
-               <Route path="/items" element={<ItemList /*loading={ loading }*/ /> } />  
+               <Route path="/products" element={<ItemList /*loading={ loading }*/ /> } />  
                <Route path="/about" element={<About /> } /> 
                <Route path="/checkout" element={<Checkout cartCount={cartCount} /> } /> 
                <Route path="/pay" element={<Payment /> } /> 
-               <Route path="/items/:id" element={<ItemDetails cartCount={cartCount} /> } /> 
+               <Route path="/products/:id" element={<ItemDetails cartCount={cartCount} /> } /> 
+               <Route path="*" element={ <h2>404 Page Not Found</h2>} /> 
+               {/* TODO : create a 404 componenet  */}
 
 
              </Routes> 

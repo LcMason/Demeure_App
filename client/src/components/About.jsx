@@ -1,9 +1,12 @@
 import React from "react";
 // import {LinkX} from "react-scroll";
 import About2 from "./images/About2.jpg";
+import BreadCrumbs from "./BreadCrumbs";
 
 const About = () => {
   return (
+    <>
+    <BreadCrumbs />
     <div className="containter-fluid">
       <div className="has-bg-img">
         <div className="image-container">
@@ -24,6 +27,7 @@ const About = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

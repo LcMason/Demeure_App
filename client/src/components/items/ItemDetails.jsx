@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { addToCart, removeFromCart, adjustQty, updateCartCount } from '../actions/items'
 import { addReview } from "../actions/reviews"
 import CheckoutImg from "../images/CheckoutImg.jpg"
+import BreadCrumbs from "../BreadCrumbs"
 
 //TODO: review user_items_controller cart method. select the id that matches the item_id and update the quantity + 1. Review Rails Resource Routing: Update
 
@@ -79,6 +80,8 @@ const ItemDetails = () => {
     }
 
 return ( 
+    <>
+    <BreadCrumbs />
     <main className="mt-5 pt-4">
         <div className="container mt-5">    
             <div className="row">
@@ -128,6 +131,7 @@ return (
             </div>    
         </div>
     </main>
+    </>
     )
 }
 export default ItemDetails

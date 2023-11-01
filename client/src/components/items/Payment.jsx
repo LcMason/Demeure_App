@@ -55,7 +55,7 @@ function Payment() {
 
   return (
       <div>
-        {/*  style Div and write a better title to process payments  */}
+        {/*  TODO : style Div and write a better title to process payments  */}
         {/* <BreadCrumbs /> */}
         <h1>Demeure</h1>
         {/* Nicholas : Should I place my breadcrumbs under the navLinks? see example of Aime payment page */}
@@ -64,8 +64,7 @@ function Payment() {
             <Elements stripe={stripePromise} options={options}>
                 <CheckoutForm />
             </Elements>
-        )
-        }
+        )}
       </div>
   )
 }

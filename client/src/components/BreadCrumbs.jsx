@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
-function BreadCrumbs() {
+function BreadCrumbs(path) {
     const location = useLocation()
 
 

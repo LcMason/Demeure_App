@@ -12,7 +12,7 @@ const LoggedOutLinks = () => {
           </Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="/items">Shop</Link>
+          <Link className="nav-link" to="/products">Shop</Link>
         </li>
         <li className="nav-item">
           <Link className="nav-link" to="/Signup">Signup</Link>
