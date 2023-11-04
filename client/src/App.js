@@ -14,6 +14,7 @@ import ItemList from './components/items/ItemList';
 import { loadCurrentUser } from './components/actions/users';
 import ItemDetails from './components/items/ItemDetails';
 import Payment from './components/items/Payment';
+import PaymentComplete from './components/items/PaymentComplete'
 
 function App() {
   const { currentUser, cartCount } = useSelector((store) => store.usersReducer)
@@ -50,7 +51,8 @@ function App() {
                <Route path="/about" element={<About /> } /> 
                <Route path="/checkout" element={<Checkout cartCount={cartCount} /> } /> 
                <Route path="/pay" element={<Payment /> } /> 
-               <Route path="/products/:id" element={<ItemDetails cartCount={cartCount} /> } /> 
+               <Route path="/complete" element={<PaymentComplete /> } /> 
+               <Route path="/products/:id" element={<ItemDetails cartCount={cartCount}  /> } /> 
                <Route path="*" element={ <h2>404 Page Not Found</h2>} /> 
                {/* TODO : create a 404 componenet  */}
 

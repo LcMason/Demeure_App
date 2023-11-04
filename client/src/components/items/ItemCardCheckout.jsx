@@ -32,8 +32,8 @@ const ItemCardCheckout = ({ item }) => {
           <div className="d-flex flex-row align-items-center">
             <div>
               <img
-                src={dingyShoes}
-                className="img-fluid rounded-3" alt="dingy shoes" style={{width: '65px'}}/>
+                src={item.image} alt={item.name}
+                className="img-fluid rounded-3" style={{width: '65px'}}/>
             </div>
             <div className="ms-3">
               <p className="small mb-0">{item.name}</p>
@@ -60,9 +60,9 @@ const ItemCardCheckout = ({ item }) => {
             >
               -
             </button>
-             <div>
-            <button onClick={() => {handleDeleteItem(item.id)}}>Remove</button>
-            </div>
+            
+              <button className="btn btn-sm btn-primary ms-2" onClick={() => {handleDeleteItem(item.id)}}>Remove</button>
+            
           </div>
             <Link to="#!" style={{color: '#cecece'}}><i className="fas fa-trash-alt"></i></Link>
           </div>

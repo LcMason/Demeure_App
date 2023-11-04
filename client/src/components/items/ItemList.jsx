@@ -14,7 +14,7 @@ const ItemList = () => {
 
 
   const handleClick = (id) => {
-    dispatch(showItem(id))
+    // dispatch(showItem(id))
     navigate(`/products/${id}`)
   }
 
@@ -35,7 +35,7 @@ const ItemList = () => {
         {items.map((item) => 
           <div key={item.id} className="col-lg-3 col-md-6 col-sm-6 d-flex">
             <div className="card w-100 my-2 shadow-2-strong">
-              <img src={shoe} alt={shoe} className="card-img-top" style={{"aspectRatio": "1 / 1"}} />
+              <img src={item.image} alt={item.image} className="card-img-top" style={{"aspectRatio": "1 / 1"}} />
               <div className="card-bodly d-flex flex-column">
                 <h5 className="card-title">{item.name}</h5>
                 <p className="card-text">${item.price}</p>

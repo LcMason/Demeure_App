@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   post "/checkout", to: "user_items#post"
 
   # get "/items/:items_id/reviews", to: "reviews#index"
-  get "items/:items_id/reviews/:id", to: "reviews#show"
+  # get "items/:items_id/reviews/:id", to: "reviews#show"
   post "/client_secret", to: "client_secret#create"
 
 
@@ -29,8 +29,8 @@ Rails.application.routes.draw do
     resources :reviews
   end
 
-  resources :items, only: [:index, :show] do
-    resources :reviews, only: [:show, :create, :destroy]
+  resources :items, only: [:show] do
+    resources :reviews, only: [:create, :destroy]
   end
 
 # TODO  : Review nested resources in routes.rb file. 
@@ -39,7 +39,7 @@ Rails.application.routes.draw do
   # resources :user_items, only: [:index, :show, :create, :destroy, :update]
   resources :user_items, only: [:show, :index, :destroy]
   resources :users, except: [:update, :destroy]
-  resources :items, only: [:index, :show]
+  resources :items, only: [:index]
   # TODO : may want to add a show route for reviews to search a partical item and have it's review associated.
   resources :reviews, except: [:show, :update]
   # resources :reviews, only: [:show, :index, :create :destroy]

@@ -103,7 +103,7 @@ const handlePay = () => {
             <div className="card">
               <div className="card-body p-4">
                 <div className="row">
-                  <div className="col-lg-7">
+                  <div className="col">
                     <h5 className="mb-3"><Link to="/products" className="text-body"><i
                       className="fas fa-long-arrow-alt-left me-2"></i>Continue shopping</Link></h5>
                     <hr />

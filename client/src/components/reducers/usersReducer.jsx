@@ -142,8 +142,7 @@ const usersReducer = (state=initialState, action) => {
         }
       };
     }
-
-            
+     
         case "ADD_REVIEW":
           const updatedItem = {...state.showItem, reviews: [...state.reviews, action.payload] }
           return {
@@ -153,6 +152,7 @@ const usersReducer = (state=initialState, action) => {
         }                
         default:
           return state;
-    }
+   
+        }
 }
 export default usersReducer;

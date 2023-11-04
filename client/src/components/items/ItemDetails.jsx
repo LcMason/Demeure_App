@@ -87,7 +87,7 @@ return (
             <div className="row">
                 <div key={currentItem.id} className="col-md-6 mb-4">
                     {currentItem && (
-                        <img src={CheckoutImg} className="img-fluid" alt={CheckoutImg} />
+                        <img src={currentItem.image} className="img-fluid" alt={currentItem.name} />
                     )}
                 </div>
                 <div className="col-md-6 mb-4">
