@@ -20,14 +20,14 @@ const Home = () => {
   const [currentDate, setCurrentDate] = useState(getDate());
 
   const dateStyle = {
-    fontSize: '16px', // Adjust the font size as needed
+    fontSize: '16px'
   };
 
   return (
-    <div className="containter-fluid">
+    // <div className="containter-fluid">
       <div className="has-bg-img">
         <h2 className="text-center">DEMEURE</h2>
-        <h4 className="text-center" style={dateStyle}>{currentDate}</h4>
+        <p className="text-center" style={dateStyle}>{currentDate}</p>
         <div>
           <div style={{
             height: "100vh",
@@ -37,7 +37,7 @@ const Home = () => {
           }} className="bg-img mx-auto"></div>
         </div>
       </div>
-    </div>
+    // </div>
   )
 }
 

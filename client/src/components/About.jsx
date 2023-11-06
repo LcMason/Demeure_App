@@ -1,6 +1,4 @@
 import React from "react";
-// import {LinkX} from "react-scroll";
-import About2 from "./images/About2.jpg";
 import BreadCrumbs from "./BreadCrumbs";
 import AboutImage from "./images/AboutImage.jpg"
 

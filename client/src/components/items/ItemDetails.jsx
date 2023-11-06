@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
-import { addToCart, removeFromCart, adjustQty, updateCartCount } from '../actions/items'
+import { addToCart, adjustQty } from '../actions/items'
 import { addReview } from "../actions/reviews"
-import CheckoutImg from "../images/CheckoutImg.jpg"
 import BreadCrumbs from "../BreadCrumbs"
 
 //TODO: review user_items_controller cart method. select the id that matches the item_id and update the quantity + 1. Review Rails Resource Routing: Update
@@ -23,14 +22,12 @@ const ItemDetails = () => {
     useEffect(() => {
         const itemQ = currentUser?.userItems?.find((item) => item.id === currentItem.id);
         setQty(itemQ?.quantity || 0);
-        // Nicholas : Why are we calling the setter function (setQty) with the same code that is in state in our useEffect?
+        // Review : Why are we calling the setter function (setQty) with the same code that is in state in our useEffect?
         const updatedCartTotal = currentUser?.userItems?.reduce((total, item) => {
         return total + item.quantity * item.price;
         }, 0);
         setCartTotal(updatedCartTotal || 0);
     }, [currentUser, currentItem, cartCount]);
-    // Nicholas : Why do we have currentUser in the dependencies array if we're only looking for the currentItem & cartCount to change?
-    // Nicholas : the user wont change if we are the logged in user. 
 
     const handleAddItem = (id) => {
         console.log(id)

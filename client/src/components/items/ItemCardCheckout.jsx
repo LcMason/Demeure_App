@@ -1,15 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import dingyShoes from "../images/dingyShoes.jpg"
 import { Link } from "react-router-dom"
-import { useSelector, useDispatch } from "react-redux"
+import { useDispatch } from "react-redux"
 import { removeFromCart, adjustQty, deleteSingleItem } from "../actions/items" 
 
 const ItemCardCheckout = ({ item }) => {
-  const { currentUser, userItems, cartCount } = useSelector(store => store.usersReducer)
-  const dispatch = useDispatch();
-  const [qty, setQty] = useState(item.quantity || 0);
-  const [cartTotal, setCartTotal] = useState(cartCount)
- 
+const dispatch = useDispatch();
 
    const handleAdjustQuantity = (op) => {
      if (op === "+") {
