@@ -1,4 +1,4 @@
-# Project Template: React/Rails API
+<!-- # Project Template: React/Rails API
 
 ## Description
 
@@ -357,4 +357,38 @@ troubleshoot:
 - Shopping Cart (CRUD)
 - Items 
 - Review
-- 
+-  -->
+
+
+# DEMEURE
+
+**E-Commerce Online Store where you can purchase boutique pieces**
+
+DEMEURE is an e-commerce website that offers custom boutique pieces made and named to represent the city DEMEURE was founded, The Bronx, NY. Website visitors can sign-up, login and start shopping. Checkout is available with Stripe payment system. Created using responsive design. Written in JavaScript/React on frontend and Ruby on Rails on a backend.
+
+**Stack:**
+> - Ruby on Rails;
+> - JavaScript;
+> - React;
+> - HTML/CSS;
+> - Docker;
+> - Stripe.
+
+**API:**
+> - [Stripe](https://stripe.com/docs/api)
+
+**How to run instructions:**
+1. Fork and clone this Project's GitHub repository.  
+2. Have current version of Ruby, Rails and Node installed.
+3. Open a terminal and navigate into the backend folder:
+* _Install required gems (listed in Gemfile) by running the command 'bundle install';_
+* _Run the command 'rails db:create' which will create the database;_
+* _Run the command 'rails db:migrate' which will do DB migrations;_
+* _Run the command 'rails db:seed' which will populate the database with existing user/plan/lists/tasks data;_
+* _Run the command 'rails s' to start backend server;_
+4. Open a separate terminal window/tab and navigate into the frontend folder:
+* _Run the command 'npm install' to install dependencies into the node_modules/ directory;_
+* _Run the command 'npm start' to start frontend server._
+
+
+**DEMEURE is an online store integrated with Stripe (test mode ON) and was created for educational purposes only.**
