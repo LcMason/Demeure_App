@@ -367,12 +367,12 @@ troubleshoot:
 DEMEURE is an e-commerce website that offers custom boutique pieces made and named to represent the city DEMEURE was founded, The Bronx, NY. Website visitors can sign-up, login and start shopping. Checkout is available with Stripe payment system. Created using responsive design. Written in JavaScript/React on frontend and Ruby on Rails on a backend.
 
 **Stack:**
-> - Ruby on Rails;
-> - JavaScript;
-> - React;
-> - HTML/CSS;
-> - Docker;
-> - Stripe.
+> - Ruby on Rails
+> - JavaScript
+> - React
+> - HTML/CSS
+> - Docker
+> - Stripe
 
 **API:**
 > - [Stripe](https://stripe.com/docs/api)
