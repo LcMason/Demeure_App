@@ -9,7 +9,7 @@ import { useLocation } from 'react-router-dom';
 
 const stripePromise = loadStripe('pk_test_51IlDPTH1TNv3FkZtTPZLrDSIb5mOalPb2XtVEbHir9aSISNNMCGYIaN39EffZ82UTiXDgdAoPSknmuxT3cYQmNYX00mcTFWniS');
 
-
+stripePromise.then((res)=> console.log(res)) 
 function Payment() {
     const [secret, setSecret] = useState("");
     const location = useLocation()
@@ -17,7 +17,7 @@ function Payment() {
 
     const options = {
         // passing the client secret obtained from the server
-        clientSecret: location.state.secret,
+        clientSecret: secret
     };
 
     useEffect(() => {

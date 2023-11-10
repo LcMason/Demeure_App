@@ -19,20 +19,9 @@ const Checkout = () => {
   const [secret, setSecret] = useState("")
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  // const location = useLocation()
   
 
-  // const options = {
-  //   // passing the client secret obtained from the server
-  //   clientSecret: secret,
-  // };
 
-  // const options = {
-  //   // passing the client secret obtained from the server
-  //   clientSecret: location.state.secret,
-  // };
-
-// Nicholas : Where does .quantity come from? We do not have a qunatity attribute on the backend. How do we access it in the frontend?
   useEffect(() => {
     let price = 0;
     if (currentUser && currentUser.userItems) {
@@ -46,42 +35,9 @@ const Checkout = () => {
     // REVIEW : price is a variable updated by 37-41. 
   }, [currentUser]);
 
-  useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
-
-    fetch('/client_secret', {
-      signal: signal,
-      method: "POST",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        amount: 2000
-      })
-    })
-      .then(resp => resp.json())
-      .then(data => {
-        setSecret(data.client_secret);
-      })
-      .catch(err => {
-        if (err.name === 'AbortError') {
-          console.log('successfully aborted');
-        } else {
-          console.log(err) 
-          // tell the user what happens.. protect backend data.
-        }
-      });
-    return () => {
-      controller.abort();
-    };
-  }, [totalPrice]);
-  // REVIEW : totalPrice is state varaible with the updated price.
-
   
 const handlePay = () => {
-  navigate("/pay", {state: {totalPrice, secret}})
+  navigate("/pay", {state: {totalPrice }})
   // Nicholas : The state value of secret is an empty string so what is the value of the 2nd argument on ln 68?
   // Nicholas : How can I pass order summary to payment? See Aime payment page
 }
